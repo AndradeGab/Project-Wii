@@ -31,16 +31,13 @@ body {
   width: 1280px;
   height: 720px;
   background: #f2f2f2;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  
   gap: 10px;
   row-gap: 36px;
   padding-top: 80px;
   padding-left: 50px;
-  padding-right: 50px;
-  position: relative;
-  overflow: hidden;
-  padding-bottom: 45px;
+
 }
 
 .wiiscreen img{
@@ -55,9 +52,12 @@ body {
     border-color 0.25s ease;
   border: 4px silver solid;
   background: white;
-  padding: 0;
-margin: 0;
 
+}
+
+.wiiscreen2{
+  display: flex;
+  
 }
 
 .wiiscreen img:hover {
@@ -84,3 +84,9 @@ margin: 0;
   display: block;
 }
 
+#titulo{
+  color: #37b4e7;
+  display: flex;
+  justify-content: center;
+  font-size: 30px;
+}
