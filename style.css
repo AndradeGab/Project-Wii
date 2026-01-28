@@ -32,16 +32,15 @@ body {
   height: 720px;
   background: #f2f2f2;
   display: flex;
-  
-  gap: 10px;
-  row-gap: 36px;
+  flex-wrap: wrap;
+  gap: 36px 20px;
   padding-top: 80px;
-  padding-left: 50px;
+  padding-left: 15px;
 
 }
 
 .wiiscreen img{
-  width: 100%;
+  flex: 0 0 calc(25% - 20px);
   aspect-ratio: 16 / 9;
   height: 145px;
   display: block;
