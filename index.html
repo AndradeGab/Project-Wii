@@ -1,46 +1,49 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wii Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="console">
-    <div class="wiiscreen"> 
-        <img src="globo.png" alt="projeto globo">
-        <img src="animeflix.png" alt="projeto animeflix">
-        <img src="" alt="">
-        <img src="" alt="">
-        <img src="" alt="">
-        <img src="" alt="">
-        <img src="" alt="">
-        <img src="" alt="">
-        <img src="" alt="">
-        <img src="" alt="">
-        <img src="" alt="">
-        <img src="" alt="">
+        <div class="wiiscreen" id="wiiscreen"> </div>
+
+        <div class="wii-footer">
+
+            <div class="footer-info">
+                <div id="data"></div>
+                <div id="hora"></div>
+            </div>
+
+            <p id="titulo">Wii Menu</p>
+
+            <svg>
+                ...
+            </svg>
+
         </div>
 
-            <div class="wii-footer">
-                <p id="titulo">Wii Menu</p>
-                 <svg viewBox="0 0 1280 45" preserveAspectRatio="none">
-                <path
-                d="M0 22 Q640 10 1280 22"
-                fill="none"
-                stroke="#37b4e7"
-                stroke-width="3"
-    />
-  </svg>
-            </div>
+    </div>
+
     </div>
 
     </div>
     </div>
 
+    <div id="cursor">
+        <img src="cursor/cursor.png" id="cursor-img">
+    </div>
+
+    <div id="transicao"></div>
+
+    <script src="script.js"></script>
 </body>
+
 </html>
