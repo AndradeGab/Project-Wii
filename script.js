@@ -1,3 +1,7 @@
+// =====================
+// CANAIS
+// =====================
+
 const canais = [
     {
         nome: "Animeflix",
@@ -11,7 +15,26 @@ const canais = [
     }
 ];
 
+// =====================
+// SONS
+// =====================
+
+const clickSound = new Audio("audio/click.mp3");
+const hoverSound = new Audio("audio/hover.mp3");
+
+hoverSound.volume = 0.7;
+
+// =====================
+// ELEMENTOS
+// =====================
+
 const tela = document.getElementById("wiiscreen");
+const cursor = document.getElementById("cursor");
+const transicao = document.getElementById("transicao");
+
+// =====================
+// CRIAR CARDS
+// =====================
 
 canais.forEach(canal => {
 
@@ -28,9 +51,24 @@ canais.forEach(canal => {
     card.appendChild(img);
     card.appendChild(titulo);
 
-    const transicao = document.getElementById("transicao");
+    // Hover
+    card.addEventListener("mouseenter", () => {
 
+        hoverSound.currentTime = 0;
+        hoverSound.play();
+
+        cursor.classList.add("hover");
+    });
+
+    card.addEventListener("mouseleave", () => {
+        cursor.classList.remove("hover");
+    });
+
+    // Clique
     card.addEventListener("click", () => {
+
+        clickSound.currentTime = 0;
+        clickSound.play();
 
         card.classList.add("abrindo");
 
@@ -49,22 +87,13 @@ canais.forEach(canal => {
 
     });
 
-    card.addEventListener("mouseenter", () => {
-        cursor.classList.add("hover");
-    });
-
-    card.addEventListener("mouseleave", () => {
-        cursor.classList.remove("hover");
-    });
-
-
     tela.appendChild(card);
 
 });
 
-
-
-const cursor = document.getElementById("cursor");
+// =====================
+// CURSOR WII
+// =====================
 
 document.addEventListener("mousemove", (e) => {
 
@@ -72,6 +101,10 @@ document.addEventListener("mousemove", (e) => {
     cursor.style.top = e.clientY + "px";
 
 });
+
+// =====================
+// RELÓGIO
+// =====================
 
 const hora = document.getElementById("hora");
 const data = document.getElementById("data");
@@ -103,5 +136,24 @@ function atualizarRelogio() {
 }
 
 atualizarRelogio();
-
 setInterval(atualizarRelogio, 1000);
+
+// =====================
+// MÚSICA DE FUNDO
+// =====================
+
+const bgm = document.getElementById("bgm");
+
+bgm.volume = 0.15;
+
+const startScreen = document.getElementById("start-screen");
+
+startScreen.addEventListener("click", () => {
+
+    bgm.play();
+
+    startScreen.classList.add("esconder");
+
+});
+
+bgm.volume = 0.15;

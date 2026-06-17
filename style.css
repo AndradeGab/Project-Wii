@@ -198,3 +198,24 @@ body {
   font-size: 24px;
   color: #666;
 }
+
+#start-screen {
+    position: fixed;
+    inset: 0;
+
+    background: white;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 999999;
+
+    transition: opacity .6s ease;
+}
+
+#start-screen.esconder {
+    opacity: 0;
+    pointer-events: none;
+}
