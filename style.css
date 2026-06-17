@@ -1,3 +1,17 @@
+@font-face {
+  font-family: "DS-Digital";
+  src: url("fonts/DS-DIGI.TTF") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face{
+  font-family: "cont-b";
+  src: url(fonts/contb.ttf) format(truetype);
+  font-weight: normal;
+  font-style: normal;
+}
+
 *,
 *::before,
 *::after {
@@ -9,9 +23,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #ffffff;
+  background: linear-gradient(to bottom,
+      #fdfdfd,
+      #eef2f5);
   overflow: hidden;
-  font-family: "Varela Round", sans-serif;
+  font-family: "contb", sans-serif;
   font-weight: 400;
   font-style: normal;
   letter-spacing: 0.2px;
@@ -21,36 +37,77 @@ body {
 
 .console {
   position: relative;
-  width: 100vw;
-  height: 100vh;
+  width: 1280px;
+  height: 720px;
+  transform: scale(.9);
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #000000;
+  background:
+    linear-gradient(to bottom,
+      #fdfdfd,
+      #eef2f5);
 }
 
 .wiiscreen {
+  position: relative;
+
   width: 1280px;
   height: 720px;
-  background: #f2f2f2;
-  display: grid;
-  grid-template-columns:
-    repeat(4, 1fr);
 
-  grid-template-rows:
-    repeat(3, 1fr);
+  background:
+    radial-gradient(circle at top,
+      #ffffff,
+      #eef2f5 60%);
 
-  gap: 20px;
-  padding-top: 80px;
-  padding-left: 15px;
-
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow:
+    inset 0 1px 0 white,
+    inset 0 -1px 0 rgba(0, 0, 0, .05),
+    0 0 20px rgba(0, 0, 0, .08);
 }
 
+.wiiscreen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
 
+  background:
+    radial-gradient(circle at 50% -100px,
+      rgba(255, 255, 255, .8),
+      transparent 60%);
 
-.wiiscreen2 {
-  display: flex;
+  pointer-events: none;
+}
 
+.wiiscreen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background-image: url("imagens/textura.jpg");
+  background-repeat: repeat;
+  background-size: 512px;
+
+  opacity: .15;
+
+  pointer-events: none;
+}
+
+.channels {
+  position: absolute;
+  top: 28px;
+  left: 34px;
+
+  width: calc(100% - 68px);
+
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 135px;
+
+  gap: 18px;
 }
 
 .wii-footer svg {
@@ -69,48 +126,98 @@ body {
 }
 
 .canal {
+  position: relative;
+  background: linear-gradient(to bottom,
+      #ffffff,
+      #f8f8f8);
+
+  border: 4px solid #cfcfcf;
+
+  width: 100%;
+
+  border-radius: 18px;
+
+  box-shadow:
+    inset 0 1px 0 white,
+    0 1px 3px rgba(0, 0, 0, .12);
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
-  aspect-ratio: 16 / 9;
-
-  border: 4px solid silver;
-  border-radius: 15px;
-  overflow: hidden;
-
-  background: white;
-
   transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    border-color 0.25s ease;
-  padding: 6px;
+    transform .15s ease,
+    box-shadow .15s ease,
+    border-color .15s ease;
+}
+
+.canal::before {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 40%;
+
+  background: linear-gradient(to bottom,
+      rgba(255, 255, 255, .7),
+      transparent);
+
+  pointer-events: none;
+}
+
+.canal::after {
+  content: "";
+
+  position: absolute;
+  inset: 4px;
+
+  border-radius: 14px;
+
+  border: 1px solid rgba(255, 255, 255, .8);
+
+  pointer-events: none;
 }
 
 .canal img {
-  flex: 1;
-
-  width: 100%;
-  min-height: 0;
+  width: calc(100% - 12px);
+  height: calc(100% - 12px);
 
   object-fit: cover;
-  border-radius: 8px;
+
+  border-radius: 12px;
+  padding: 6px;
 }
 
 .canal:hover {
-  transform: scale(1.04);
+  transform: translateY(-2px) scale(1.02);
 
-  border-color: #37b4e7;
+  border-color: #72d5ff;
 
   box-shadow:
-    0 0 0 2px rgba(55, 180, 231, 0.25),
-    0 10px 20px rgba(0, 0, 0, 0.15);
+    0 0 0 2px rgba(114, 213, 255, .35);
+
+}
+
+.canal:hover::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  border-radius: 12px;
+
+  pointer-events: none;
 }
 
 .canal p {
-  margin: 4px 0 0;
-  text-align: center;
-  font-size: 14px;
-  color: #666;
+  height: 30px;
+  margin: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #cursor {
@@ -174,48 +281,241 @@ body {
 
 .wii-footer {
   position: absolute;
+
   bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-
-  width: 1280px;
-  height: 100px;
-}
-
-.footer-info {
-  position: absolute;
-
-  top: 0;
   left: 0;
 
   width: 100%;
+  height: 90px;
+  border-top: 1px solid #fdfdfd;
+  background:
+    linear-gradient(to bottom,
+      #ececec,
+      #d8d8d8);
 
-  display: flex;
-  justify-content: space-between;
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, .8);
 
-  padding: 0 40px;
-
-  font-size: 24px;
-  color: #666;
+  box-shadow:
+    inset 0 2px 2px white,
+    0 -1px 0 rgba(255, 255, 255, .7);
 }
 
+.wii-footer::before {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  width: 100%;
+
+  top: -78px;
+
+  height: 90px;
+
+  border-bottom: 3px solid #6fcff7;
+
+  border-radius: 0 0 50% 50%;
+}
+
+.footer-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: absolute;
+
+  left: 50%;
+
+  bottom: 45px;
+
+  transform: translateX(-50%);
+
+  z-index: 5;
+}
+
+
 #start-screen {
-    position: fixed;
-    inset: 0;
+  position: fixed;
+  inset: 0;
 
-    background: white;
+  background:
+    radial-gradient(circle,
+      #000000,
+      #484848);
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-    z-index: 999999;
+  z-index: 999999;
 
-    transition: opacity .6s ease;
+  transition: opacity .6s ease;
+}
+
+#start-screen h1{
+  color: white;
+  font-size: 80px;
+}
+
+#start-screen p{
+  color: white;
+  font-size: 20px;
 }
 
 #start-screen.esconder {
-    opacity: 0;
-    pointer-events: none;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.wii-button {
+  width: 70px;
+  height: 70px;
+
+  border-radius: 50%;
+
+  background: linear-gradient(to bottom,
+      #ffffff,
+      #d9d9d9);
+
+  border: 2px solid #72ccef;
+
+  position: absolute;
+  bottom: 12px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: #8c8c8c;
+  font-size: 32px;
+  transition:
+    transform .15s ease,
+    box-shadow .15s ease;
+  box-shadow:
+    0 0 0 2px rgba(114, 204, 239, .15),
+    inset 0 2px 2px white,
+    inset 0 -2px 4px rgba(0, 0, 0, .12),
+    0 2px 4px rgba(0, 0, 0, .15);
+}
+
+.wii-button:hover {
+  transform: scale(1.08);
+
+  box-shadow:
+    0 0 18px rgba(114, 204, 239, .45),
+    0 0 0 3px rgba(114, 204, 239, .2),
+    inset 0 2px 2px white,
+    inset 0 -2px 4px rgba(0, 0, 0, .12),
+    0 2px 4px rgba(0, 0, 0, .15);
+}
+
+.footer-channel-name {
+  position: absolute;
+
+  left: 50%;
+  top: -38px;
+
+  transform: translateX(-50%);
+
+  background: white;
+
+  padding: 8px 22px;
+
+  border-radius: 20px;
+
+  border: 1px solid #d5d5d5;
+
+  color: #555;
+
+  font-size: 18px;
+
+  opacity: 0;
+
+  transition: .15s;
+}
+
+#channel-tooltip {
+  position: absolute;
+
+  background: white;
+
+  padding: 12px 30px;
+
+  border-radius: 999px;
+
+  font-size: 22px;
+  color: #444;
+
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, .15);
+
+  opacity: 0;
+
+  transform: translateX(-50%);
+
+  transition:
+    opacity .15s ease,
+    transform .15s ease;
+
+  pointer-events: none;
+
+  z-index: 5000;
+}
+
+#channel-tooltip::after {
+  content: "";
+
+  position: absolute;
+
+  top: -8px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid white;
+}
+
+.wii-button.left {
+  left: 40px;
+  border-color: #63d7ff;
+
+  box-shadow:
+    0 0 12px rgba(99, 215, 255, .4),
+    inset 0 2px 2px white,
+    inset 0 -2px 4px rgba(0, 0, 0, .15);
+}
+
+.wii-button.right {
+  right: 40px;
+  border-color: #63d7ff;
+
+  box-shadow:
+    0 0 12px rgba(99, 215, 255, .4),
+    inset 0 2px 2px white,
+    inset 0 -2px 4px rgba(0, 0, 0, .15);
+}
+
+#hora {
+  font-family: "DS-Digital", sans-serif;
+  font-size: 64px;
+  font-weight: bolder;
+
+  color: #6e6e6e;
+
+  letter-spacing: 2px;
+  line-height: 1;
+  padding-bottom: 15px;
+}
+
+#data {
+  font-size: 20px;
+  color: #777;
+}
+
+#botaoControle{
+  width: 20px;
 }

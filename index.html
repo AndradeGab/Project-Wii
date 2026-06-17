@@ -21,26 +21,37 @@
 
         <h1>Wii Portfolio</h1>
 
-        <p>Aponte o WiiMote pra tela e aperte A (apenas clique!) para começar</p>
+        <p>Aponte o WiiMote pra tela e aperte <img id="botaoControle" src="imagens/a.png" alt=""> (apenas clique!) para começar</p>
 
     </div>
     <div class="console">
-        <div class="wiiscreen" id="wiiscreen"> </div>
+        <div class="wiiscreen" id="wiiscreen">
 
-        <div class="wii-footer">
+            <div class="channels" id="channels">
 
-            <div class="footer-info">
-                <div id="data"></div>
-                <div id="hora"></div>
             </div>
 
-            <p id="titulo">Wii Menu</p>
+            </div>
 
-            <svg>
-                ...
-            </svg>
+            <div class="wii-footer">
+                <div class="wii-button left">
+                    Wii
+                </div>
+                <div class="footer-channel-name"></div>
+                <div class="footer-center">
+                    <div id="hora"></div>
+                    <div id="data"></div>
+                </div>
 
+                <div class="wii-button right">
+                    ✉
+                </div>
+
+            </div>
+            <div id="channel-tooltip"></div>
         </div>
+
+
 
     </div>
 

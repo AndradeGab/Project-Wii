@@ -5,14 +5,64 @@
 const canais = [
     {
         nome: "Animeflix",
-        imagem: "animeflix.png",
+        imagem: "imagens/animeflix.png",
         url: "https://gabrielandrade.dev.br/"
     },
     {
         nome: "Projeto Globo",
-        imagem: "globo.png",
+        imagem: "imagens/globo.png",
         url: "https://andradegab.github.io/Projeto-Globo/"
-    }
+    },
+    {
+        nome: "Animeflix",
+        imagem: "imagens/animeflix.png",
+        url: "https://gabrielandrade.dev.br/"
+    },
+    {
+        nome: "Projeto Globo",
+        imagem: "imagens/globo.png",
+        url: "https://andradegab.github.io/Projeto-Globo/"
+    },
+    {
+        nome: "Animeflix",
+        imagem: "imagens/animeflix.png",
+        url: "https://gabrielandrade.dev.br/"
+    },
+    {
+        nome: "Projeto Globo",
+        imagem: "imagens/globo.png",
+        url: "https://andradegab.github.io/Projeto-Globo/"
+    },
+    {
+        nome: "Animeflix",
+        imagem: "imagens/animeflix.png",
+        url: "https://gabrielandrade.dev.br/"
+    },
+    {
+        nome: "Projeto Globo",
+        imagem: "imagens/globo.png",
+        url: "https://andradegab.github.io/Projeto-Globo/"
+    },
+    {
+        nome: "Animeflix",
+        imagem: "imagens/animeflix.png",
+        url: "https://gabrielandrade.dev.br/"
+    },
+    {
+        nome: "Projeto Globo",
+        imagem: "imagens/globo.png",
+        url: "https://andradegab.github.io/Projeto-Globo/"
+    },
+    {
+        nome: "Animeflix",
+        imagem: "imagens/animeflix.png",
+        url: "https://gabrielandrade.dev.br/"
+    },
+    {
+        nome: "Projeto Globo",
+        imagem: "imagens/globo.png",
+        url: "https://andradegab.github.io/Projeto-Globo/"
+    },
 ];
 
 // =====================
@@ -21,6 +71,8 @@ const canais = [
 
 const clickSound = new Audio("audio/click.mp3");
 const hoverSound = new Audio("audio/hover.mp3");
+const tooltip =
+    document.getElementById("channel-tooltip");
 
 hoverSound.volume = 0.7;
 
@@ -28,7 +80,7 @@ hoverSound.volume = 0.7;
 // ELEMENTOS
 // =====================
 
-const tela = document.getElementById("wiiscreen");
+const tela = document.getElementById("channels");
 const cursor = document.getElementById("cursor");
 const transicao = document.getElementById("transicao");
 
@@ -45,14 +97,24 @@ canais.forEach(canal => {
     img.src = canal.imagem;
     img.alt = canal.nome;
 
-    const titulo = document.createElement("p");
-    titulo.textContent = canal.nome;
 
     card.appendChild(img);
-    card.appendChild(titulo);
 
     // Hover
     card.addEventListener("mouseenter", () => {
+
+        tooltip.textContent = canal.nome;
+
+        const rect = card.getBoundingClientRect();
+        const telaRect = wiiscreen.getBoundingClientRect();
+
+        tooltip.style.left =
+            rect.left - telaRect.left + rect.width / 2 + "px";
+
+        tooltip.style.top =
+            rect.bottom - telaRect.top + 10 + "px";
+
+        tooltip.style.opacity = "1";
 
         hoverSound.currentTime = 0;
         hoverSound.play();
@@ -61,6 +123,9 @@ canais.forEach(canal => {
     });
 
     card.addEventListener("mouseleave", () => {
+
+        tooltip.style.opacity = "0";
+
         cursor.classList.remove("hover");
     });
 
