@@ -14,54 +14,54 @@ const canais = [
         url: "https://andradegab.github.io/Projeto-Globo/"
     },
     {
-        nome: "Animeflix",
-        imagem: "imagens/animeflix.png",
-        url: "https://gabrielandrade.dev.br/"
+        nome: "Lista de Compras",
+        imagem: "imagens/lista.png",
+        url: "https://andradegab.github.io/Lista-de-Compras/"
     },
     {
-        nome: "Projeto Globo",
-        imagem: "imagens/globo.png",
-        url: "https://andradegab.github.io/Projeto-Globo/"
+        nome: "Em Breve!",
+        imagem: "imagens/wii.jpg",
+        url: "https://www.linkedin.com/in/gabriel-andrade-a26025319/"
     },
     {
-        nome: "Animeflix",
-        imagem: "imagens/animeflix.png",
-        url: "https://gabrielandrade.dev.br/"
+        nome: "Em Breve!",
+        imagem: "imagens/wii.jpg",
+        url: "https://www.linkedin.com/in/gabriel-andrade-a26025319/"
     },
     {
-        nome: "Projeto Globo",
-        imagem: "imagens/globo.png",
-        url: "https://andradegab.github.io/Projeto-Globo/"
+        nome: "Em Breve!",
+        imagem: "imagens/wii.jpg",
+        url: "https://www.linkedin.com/in/gabriel-andrade-a26025319/"
     },
     {
-        nome: "Animeflix",
-        imagem: "imagens/animeflix.png",
-        url: "https://gabrielandrade.dev.br/"
+        nome: "Em Breve!",
+        imagem: "imagens/wii.jpg",
+        url: "https://www.linkedin.com/in/gabriel-andrade-a26025319/"
     },
     {
-        nome: "Projeto Globo",
-        imagem: "imagens/globo.png",
-        url: "https://andradegab.github.io/Projeto-Globo/"
+        nome: "Em Breve!",
+        imagem: "imagens/wii.jpg",
+        url: "https://www.linkedin.com/in/gabriel-andrade-a26025319/"
     },
     {
-        nome: "Animeflix",
-        imagem: "imagens/animeflix.png",
-        url: "https://gabrielandrade.dev.br/"
+        nome: "Em Breve!",
+        imagem: "imagens/wii.jpg",
+        url: "https://www.linkedin.com/in/gabriel-andrade-a26025319/"
     },
     {
-        nome: "Projeto Globo",
-        imagem: "imagens/globo.png",
-        url: "https://andradegab.github.io/Projeto-Globo/"
+        nome: "Em Breve!",
+        imagem: "imagens/wii.jpg",
+        url: "https://www.linkedin.com/in/gabriel-andrade-a26025319/"
     },
     {
-        nome: "Animeflix",
-        imagem: "imagens/animeflix.png",
-        url: "https://gabrielandrade.dev.br/"
+        nome: "Em Breve!",
+        imagem: "imagens/wii.jpg",
+        url: "https://www.linkedin.com/in/gabriel-andrade-a26025319/"
     },
     {
-        nome: "Projeto Globo",
-        imagem: "imagens/globo.png",
-        url: "https://andradegab.github.io/Projeto-Globo/"
+        nome: "Em Breve!",
+        imagem: "imagens/wii.jpg",
+        url: "https://www.linkedin.com/in/gabriel-andrade-a26025319/"
     },
 ];
 
@@ -222,3 +222,19 @@ startScreen.addEventListener("click", () => {
 });
 
 bgm.volume = 0.15;
+
+let canToggle = true;
+
+document.addEventListener("keydown", (e) => {
+  if (e.code === "Space" && canToggle) {
+    e.preventDefault();
+
+    canToggle = false;
+
+    document.body.classList.toggle("dark");
+
+    setTimeout(() => {
+      canToggle = true;
+    }, 200);
+  }
+});

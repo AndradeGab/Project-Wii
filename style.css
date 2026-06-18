@@ -5,10 +5,10 @@
   font-style: normal;
 }
 
-@font-face{
-  font-family: "cont-b";
-  src: url(fonts/contb.ttf) format(truetype);
-  font-weight: normal;
+@font-face {
+  font-family: "Continuum";
+  src: url("fonts/cont-b.ttf") format("truetype");
+  font-weight: bold;
   font-style: normal;
 }
 
@@ -21,17 +21,19 @@
 body {
   margin: 0;
   display: flex;
+  min-height: 100vh;
   justify-content: center;
   align-items: center;
   background: linear-gradient(to bottom,
       #fdfdfd,
       #eef2f5);
   overflow: hidden;
-  font-family: "contb", sans-serif;
+  font-family: "Varela Round", sans-serif;
   font-weight: 400;
   font-style: normal;
   letter-spacing: 0.2px;
   cursor: none;
+  
 
 }
 
@@ -43,23 +45,22 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background:
-    linear-gradient(to bottom,
-      #fdfdfd,
-      #eef2f5);
 }
 
+@keyframes flicker {
+  0% { opacity: 1; }
+  50% { opacity: 0.98; }
+  100% { opacity: 1; }
+}
+
+.wiiscreen {
+  animation: flicker 0.12s infinite;
+}
 .wiiscreen {
   position: relative;
 
   width: 1280px;
   height: 720px;
-
-  background:
-    radial-gradient(circle at top,
-      #ffffff,
-      #eef2f5 60%);
-
   overflow: hidden;
   border-radius: 8px;
   box-shadow:
@@ -68,18 +69,6 @@ body {
     0 0 20px rgba(0, 0, 0, .08);
 }
 
-.wiiscreen::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-
-  background:
-    radial-gradient(circle at 50% -100px,
-      rgba(255, 255, 255, .8),
-      transparent 60%);
-
-  pointer-events: none;
-}
 
 .wiiscreen::after {
   content: "";
@@ -339,10 +328,12 @@ body {
   position: fixed;
   inset: 0;
 
-  background:
-    radial-gradient(circle,
-      #000000,
-      #484848);
+  background: radial-gradient(
+    circle at center,
+    #ffffff 0%,
+    #e9f2f7 45%,
+    #cfe6f3 100%
+  );
 
   display: flex;
   flex-direction: column;
@@ -352,18 +343,44 @@ body {
   z-index: 999999;
 
   transition: opacity .6s ease;
+  
 }
 
-#start-screen h1{
-  color: white;
+#start-screen h1 {
+  color: #5a6b76;
   font-size: 80px;
+  font-family: "Continuum", sans-serif;
+  letter-spacing: 2px;
 }
 
-#start-screen p{
-  color: white;
+body.dark #start-screen {
+  background: radial-gradient(
+    circle at center,
+    #0b0f12 0%,
+    #11181d 45%,
+    #1a2228 100%
+  );
+}
+
+body.dark #start-screen h1 {
+  color: #cfe6f3;
+}
+
+body.dark #start-screen p {
+  color: #a8bac6;
+}
+
+body.dark {
+  background: linear-gradient(to bottom, #0b0f12, #11181d);
+}
+
+
+
+#start-screen p {
+  color: #6f7f89;
   font-size: 20px;
+  font-family: "Continuum", sans-serif;
 }
-
 #start-screen.esconder {
   opacity: 0;
   pointer-events: none;
@@ -516,6 +533,10 @@ body {
   color: #777;
 }
 
-#botaoControle{
+#botaoControle {
   width: 20px;
+}
+
+.apresentacao{
+  text-align: center;
 }
