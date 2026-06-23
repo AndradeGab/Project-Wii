@@ -18,6 +18,15 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  cursor: none !important;
+}
+
+* {
+  cursor: none !important;
+}
+
 body {
   margin: 0;
   display: flex;
@@ -33,7 +42,7 @@ body {
   font-style: normal;
   letter-spacing: 0.2px;
   cursor: none;
-  
+
 
 }
 
@@ -48,17 +57,22 @@ body {
 }
 
 @keyframes flicker {
-  0% { opacity: 1; }
-  50% { opacity: 0.98; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.98;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
-.wiiscreen {
-  animation: flicker 0.12s infinite;
-}
 .wiiscreen {
   position: relative;
-
+  animation: flicker 0.12s infinite;
   width: 1280px;
   height: 720px;
   overflow: hidden;
@@ -67,6 +81,8 @@ body {
     inset 0 1px 0 white,
     inset 0 -1px 0 rgba(0, 0, 0, .05),
     0 0 20px rgba(0, 0, 0, .08);
+  transform:
+    perspective(2500px) rotateX(1deg);
 }
 
 
@@ -137,6 +153,7 @@ body {
     transform .15s ease,
     box-shadow .15s ease,
     border-color .15s ease;
+
 }
 
 .canal::before {
@@ -209,6 +226,40 @@ body {
   align-items: center;
 }
 
+.canal.abrindo {
+  z-index: 1000;
+
+  transform: scale(8);
+
+  transition: transform .45s ease;
+}
+
+#transicao {
+  position: fixed;
+  inset: 0;
+
+  background: white;
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  z-index: 99999;
+
+  transition: opacity .25s ease;
+}
+
+#transicao.ativo {
+  opacity: 1;
+}
+
+.canal:hover::before {
+  background:
+    linear-gradient(to bottom,
+      rgba(255, 255, 255, .95),
+      rgba(255, 255, 255, .15));
+}
+
 #cursor {
   position: fixed;
   pointer-events: none;
@@ -216,12 +267,12 @@ body {
 
   width: 120px;
 
-  transform:
-    translate(-40px, -15px);
+  transform: translate(-50%, -50%);
 
   transition: transform .15s ease;
   filter:
     drop-shadow(0 0 8px rgba(55, 180, 231, .3));
+  pointer-events: none;
 
 }
 
@@ -276,18 +327,11 @@ body {
 
   width: 100%;
   height: 90px;
-  border-top: 1px solid #fdfdfd;
   background:
     linear-gradient(to bottom,
       #ececec,
       #d8d8d8);
 
-  box-shadow:
-    inset 0 2px 0 rgba(255, 255, 255, .8);
-
-  box-shadow:
-    inset 0 2px 2px white,
-    0 -1px 0 rgba(255, 255, 255, .7);
 }
 
 .wii-footer::before {
@@ -306,6 +350,7 @@ body {
 
   border-radius: 0 0 50% 50%;
 }
+
 
 .footer-center {
   display: flex;
@@ -328,12 +373,10 @@ body {
   position: fixed;
   inset: 0;
 
-  background: radial-gradient(
-    circle at center,
-    #ffffff 0%,
-    #e9f2f7 45%,
-    #cfe6f3 100%
-  );
+  background: radial-gradient(circle at center,
+      #ffffff 0%,
+      #e9f2f7 45%,
+      #cfe6f3 100%);
 
   display: flex;
   flex-direction: column;
@@ -343,7 +386,135 @@ body {
   z-index: 999999;
 
   transition: opacity .6s ease;
-  
+}
+
+#top-controls {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  z-index: 999;
+}
+
+.control-btn {
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid #ccc;
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.control-btn:hover {
+  transform: scale(1.05);
+}
+
+.volume-control {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid #ccc;
+  padding: 6px 10px;
+  border-radius: 10px;
+  transition: all .2s ease;
+}
+
+.volume-control:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 12px rgba(99, 215, 255, .25);
+}
+
+#volume-slider {
+  width: 90px;
+}
+
+body,
+.wiiscreen,
+.wii-footer,
+.canal,
+#hora,
+#data,
+#channel-tooltip {
+  transition: all .4s ease;
+}
+
+body.dark {
+  background: linear-gradient(to bottom,
+      #0b0f12,
+      #1a2228);
+}
+
+body.dark .wiiscreen {
+  background: radial-gradient(circle at top,
+      #2a3238,
+      #181e23 65%);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .08),
+    inset 0 -1px 0 rgba(0, 0, 0, .4),
+    0 0 30px rgba(0, 0, 0, .5);
+}
+
+body.dark .canal {
+  background: linear-gradient(to bottom,
+      #3b444c,
+      #2a3138);
+
+  border-color: #505860;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .06),
+    0 2px 6px rgba(0, 0, 0, .5);
+}
+
+body.dark .canal:hover {
+  border-color: #63d7ff;
+
+  box-shadow:
+    0 0 20px rgba(99, 215, 255, .25);
+}
+
+body.dark .wii-footer {
+  background: linear-gradient(to bottom,
+      #303840,
+      #23292f);
+}
+
+body.dark #hora {
+  color: #d6eaf3;
+
+  text-shadow:
+    0 0 10px rgba(99, 215, 255, .25);
+}
+
+body.dark #data {
+  color: #b8c7cf;
+}
+
+body.dark #channel-tooltip {
+  background: #303840;
+  color: #e5eef2;
+
+  box-shadow:
+    0 4px 15px rgba(0, 0, 0, .45);
+}
+
+body.dark #channel-tooltip::after {
+  border-bottom-color: #303840;
 }
 
 #start-screen h1 {
@@ -354,12 +525,15 @@ body {
 }
 
 body.dark #start-screen {
-  background: radial-gradient(
-    circle at center,
-    #0b0f12 0%,
-    #11181d 45%,
-    #1a2228 100%
-  );
+  background: radial-gradient(circle at center,
+      #1c2329 0%,
+      #13181d 50%,
+      #0b0f12 100%);
+}
+
+body.dark .wiiscreen::after {
+  opacity: .08;
+  filter: invert(1);
 }
 
 body.dark #start-screen h1 {
@@ -374,6 +548,44 @@ body.dark {
   background: linear-gradient(to bottom, #0b0f12, #11181d);
 }
 
+.theme {
+  position: relative;
+  width: 42px;
+  height: 42px;
+}
+
+/* base dos ícones */
+.theme .icon {
+  position: absolute;
+  transition: all .25s ease;
+  opacity: .35;
+  transform: scale(.9);
+}
+
+/* 🔆 modo CLARO ativo → lâmpada forte */
+body:not(.dark) .theme .light {
+  opacity: 1;
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 8px rgba(255, 220, 120, .6));
+}
+
+/* modo claro → power apagado */
+body:not(.dark) .theme .dark {
+  opacity: .25;
+}
+
+/* 🌙 modo ESCURO ativo → power forte */
+body.dark .theme .dark {
+  opacity: 1;
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 8px rgba(99, 215, 255, .4));
+}
+
+/* modo escuro → lâmpada apagada */
+body.dark .theme .light {
+  opacity: .2;
+}
+
 
 
 #start-screen p {
@@ -381,6 +593,7 @@ body.dark {
   font-size: 20px;
   font-family: "Continuum", sans-serif;
 }
+
 #start-screen.esconder {
   opacity: 0;
   pointer-events: none;
@@ -526,10 +739,13 @@ body.dark {
   letter-spacing: 2px;
   line-height: 1;
   padding-bottom: 15px;
+  text-shadow:
+    0 1px 0 white,
+    0 0 6px rgba(255, 255, 255, .6);
 }
 
 #data {
-  font-size: 20px;
+  font-size: 25px;
   color: #777;
 }
 
@@ -537,6 +753,127 @@ body.dark {
   width: 20px;
 }
 
-.apresentacao{
-  text-align: center;
+#paw-hit {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%, 200px);
+  z-index: 9999999;
+  pointer-events: none;
+  opacity: 0;
+}
+
+#paw-hit img {
+  width: 600px;
+  display: block;
+  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, .35));
+}
+
+/* animação de batida */
+#paw-hit.active {
+  animation: pawHit .6s ease forwards;
+}
+
+@keyframes pawHit {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 200px) scale(0.9);
+  }
+
+  40% {
+    opacity: 1;
+    transform: translate(-50%, -20px) scale(1.05);
+  }
+
+  55% {
+    transform: translate(-50%, 0px) scale(1);
+  }
+
+  70% {
+    transform: translate(-50%, 0px) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, 200px) scale(0.95);
+  }
+}
+
+.ripple {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  width: 30px;
+  height: 30px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 2px solid rgba(99, 215, 255, 0.6);
+  animation: rippleAnim 0.8s ease-out forwards;
+}
+
+@keyframes rippleAnim {
+  0% {
+    transform: translate(-50%, -50%) scale(0.3);
+    opacity: 0.9;
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(10);
+    opacity: 0;
+    border-width: 1px;
+  }
+}
+
+body.hit {
+  animation: shake .2s ease;
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  25% {
+    transform: translate(2px, -2px);
+  }
+
+  50% {
+    transform: translate(-2px, 2px);
+  }
+
+  75% {
+    transform: translate(2px, 2px);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/* flash da tela */
+#screen-flash {
+  position: fixed;
+  inset: 0;
+  background: white;
+  opacity: 0;
+  z-index: 9999998;
+  pointer-events: none;
+}
+
+#screen-flash.active {
+  animation: flash .4s ease;
+}
+
+@keyframes flash {
+  0% {
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }

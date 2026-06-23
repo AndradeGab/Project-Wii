@@ -26,8 +26,18 @@
         
 
     </div>
-    <div class="apresentacao">
-    <h1>Meus Projetos Abaixo</h1>
+
+    <div id="top-controls">
+  <div class="control-btn theme" id="theme-toggle">
+  <span class="icon light">💡</span>
+  <span class="icon dark">⏻</span>
+</div>
+
+  <div class="volume-control">
+    🔊
+    <input type="range" id="volume-slider" min="0" max="1" step="0.01">
+  </div>
+</div>
     <div class="console">
         <div class="wiiscreen" id="wiiscreen">
 
@@ -55,16 +65,16 @@
             <div id="channel-tooltip"></div>
         </div>
 
-
-</div>
-    </div>
-
     <div id="cursor">
         <img src="cursor/cursor.png" id="cursor-img">
     </div>
 
     <div id="transicao"></div>
+    <div id="paw-hit">
+  <img src="imagens/patagato.png" alt="paw">
+</div>
 
+<div id="screen-flash"></div>
     <script src="script.js"></script>
 </body>
 
