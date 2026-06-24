@@ -21,22 +21,23 @@
 
         <h1>Wii Portfolio</h1>
 
-        <p>Aponte o WiiMote pra tela e aperte <img id="botaoControle" src="imagens/a.png" alt=""> (apenas clique!) para começar</p>
-        
+        <p>Aponte o WiiMote pra tela e aperte <img id="botaoControle" src="imagens/a.png" alt=""> (apenas clique!) para
+            começar</p>
+
 
     </div>
 
     <div id="top-controls">
-  <div class="control-btn theme" id="theme-toggle">
-  <span class="icon light">💡</span>
-  <span class="icon dark">⏻</span>
-</div>
+        <div class="control-btn theme" id="theme-toggle">
+            <span class="icon light">💡</span>
+            <span class="icon dark">⏻</span>
+        </div>
 
-  <div class="volume-control">
-    🔊
-    <input type="range" id="volume-slider" min="0" max="1" step="0.01">
-  </div>
-</div>
+        <div class="volume-control">
+            🔊
+            <input type="range" id="volume-slider" min="0" max="1" step="0.01">
+        </div>
+    </div>
     <div class="console">
         <div class="wiiscreen" id="wiiscreen">
 
@@ -44,25 +45,25 @@
 
             </div>
 
-            </div>
-
-            <div class="wii-footer">
-                <div class="wii-button left">
-                    Wii
-                </div>
-                <div class="footer-channel-name"></div>
-                <div class="footer-center">
-                    <div id="hora"></div>
-                    <div id="data"></div>
-                </div>
-
-                <div class="wii-button right">
-                    ✉
-                </div>
-
-            </div>
-            <div id="channel-tooltip"></div>
         </div>
+
+        <div class="wii-footer">
+            <div class="wii-button left">
+                Wii
+            </div>
+            <div class="footer-channel-name"></div>
+            <div class="footer-center">
+                <div id="hora"></div>
+                <div id="data"></div>
+            </div>
+
+            <div class="wii-button right">
+                ✉
+            </div>
+
+        </div>
+        <div id="channel-tooltip"></div>
+    </div>
 
     <div id="cursor">
         <img src="cursor/cursor.png" id="cursor-img">
@@ -70,11 +71,22 @@
 
     <div id="transicao"></div>
     <div id="paw-hit">
-  <img src="imagens/patagato.png" alt="paw">
-</div>
+        <img src="imagens/patagato.png" alt="paw">
+    </div>
 
-<div id="screen-flash"></div>
+    <div id="screen-flash"></div>
+    <div id="screensaver">
+        <div id="dvd-logo">Wii</div>
+    </div>
+    <div id="light-ceiling"></div>
+    <div id="zoom-overlay"></div>
+    <div id="color-wave"></div>
+    <script src="sound.js"></script>
+    <script src="cursor.js"></script>
+    <script src="screensaver.js"></script>
+    <script src="channels.js"></script>
     <script src="script.js"></script>
+
 </body>
 
 </html>
