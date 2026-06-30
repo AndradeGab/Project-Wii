@@ -1,104 +1,103 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-const paw = document.getElementById("paw-hit");
-const themeToggle = document.getElementById("theme-toggle");
-const startScreen = document.getElementById("start-screen");
-const wave = document.getElementById("color-wave");
+    const paw = document.getElementById("paw-hit");
+    const themeToggle = document.getElementById("theme-toggle");
+    const startScreen = document.getElementById("start-screen");
+    const wave = document.getElementById("color-wave");
 
-const volumeSlider = document.getElementById("volume-slider");
+    const volumeSlider = document.getElementById("volume-slider");
 
-// volume inicial (20%)
-const initialVolume = 0.2;
+    // volume inicial (20%)
+    const initialVolume = 0.2;
 
-// aplica em tudo assim que inicia
-AudioManager.setVolume(initialVolume);
-volumeSlider.value = initialVolume;
+    // aplica em tudo assim que inicia
+    AudioManager.setVolume(initialVolume);
+    volumeSlider.value = initialVolume;
 
-// quando o usuário mexe no slider
-volumeSlider.addEventListener("input", (e) => {
-    const value = parseFloat(e.target.value);
-    AudioManager.setVolume(value);
-});
+    // quando o usuário mexe no slider
+    volumeSlider.addEventListener("input", (e) => {
+        const value = parseFloat(e.target.value);
+        AudioManager.setVolume(value);
+    });
 
-const horaEl = document.getElementById("hora");
-const dataEl = document.getElementById("data");
+    const horaEl = document.getElementById("hora");
+    const dataEl = document.getElementById("data");
 
-function atualizarRelogio() {
-    const now = new Date();
+    function atualizarRelogio() {
+        const now = new Date();
 
-    const horas = now.getHours().toString().padStart(2, "0");
-    const minutos = now.getMinutes().toString().padStart(2, "0");
+        const horas = now.getHours().toString().padStart(2, "0");
+        const minutos = now.getMinutes().toString().padStart(2, "0");
 
-    horaEl.textContent = `${horas}:${minutos}`;
+        horaEl.textContent = `${horas}:${minutos}`;
 
-    const opcoes = {
-        weekday: "long",
-        day: "2-digit",
-        month: "2-digit"
-    };
+        const diaSemana = now.toLocaleDateString("pt-BR", {
+            weekday: "short"
+        }).replace(".", "");
 
-    dataEl.textContent = now.toLocaleDateString("pt-BR", opcoes);
-}
+        const dia = now.getDate().toString().padStart(2, "0");
+        const mes = (now.getMonth() + 1).toString().padStart(2, "0");
 
-// atualiza imediatamente
-atualizarRelogio();
+        dataEl.textContent = `${diaSemana.toUpperCase()} ${dia}/${mes}`;
 
-// atualiza a cada segundo
-setInterval(atualizarRelogio, 1000);
-
-function createRipple(x, y) {
-    wave.style.left = x + "px";
-    wave.style.top = y + "px";
-
-    wave.classList.remove("active");
-    void wave.offsetWidth;
-    wave.classList.add("active");
-}
-
-// 🐾 PATA
-paw.addEventListener("click", () => {
-    const rect = paw.getBoundingClientRect();
-
-    createRipple(
-        rect.left + rect.width / 2,
-        rect.top + rect.height / 2
-    );
-
-    // DEBUG (remove depois)
-    document.body.classList.toggle("dark");
-});
-
-// 💡 LÂMPADA
-themeToggle.addEventListener("click", (e) => {
-    const isDark = document.body.classList.contains("dark");
-
-    createRipple(e.clientX, e.clientY);
-
-    if (isDark) {
-        AudioManager.playDesliga();
-    } else {
-        AudioManager.playLiga();
     }
 
-    document.body.classList.toggle("dark");
+    // atualiza imediatamente
+    atualizarRelogio();
 
-    paw.classList.remove("active");
-    void paw.offsetWidth;
-    paw.classList.add("active");
-});
+    // atualiza a cada segundo
+    setInterval(atualizarRelogio, 1000);
 
-// START SCREEN
-if (startScreen) {
-    startScreen.addEventListener("click", iniciarApp);
-}
+    function createRipple(x, y) {
+        wave.style.left = x + "px";
+        wave.style.top = y + "px";
 
-function iniciarApp() {
-    startScreen.classList.add("esconder");
+        wave.classList.remove("active");
+        void wave.offsetWidth;
+        wave.classList.add("active");
+    }
 
-    AudioManager.init();
-    AudioManager.bgm.play().catch(() => {});
+    // 🐾 PATA
+    paw.addEventListener("click", () => {
+        const rect = paw.getBoundingClientRect();
 
-    resetIdleTimer();
-}
+        createRipple(
+            rect.left + rect.width / 2,
+            rect.top + rect.height / 2
+        );
+    });
+
+    // 💡 LÂMPADA
+    themeToggle.addEventListener("click", (e) => {
+        const isDark = document.body.classList.contains("dark");
+
+        createRipple(e.clientX, e.clientY);
+
+        if (isDark) {
+            AudioManager.playDesliga();
+        } else {
+            AudioManager.playLiga();
+        }
+
+        document.body.classList.toggle("dark");
+
+        paw.classList.remove("active");
+        void paw.offsetWidth;
+        paw.classList.add("active");
+    });
+
+    // START SCREEN
+    if (startScreen) {
+        startScreen.addEventListener("click", iniciarApp);
+    }
+
+    function iniciarApp() {
+        startScreen.classList.add("esconder");
+
+        AudioManager.init();
+        AudioManager.bgm.play().catch(() => { });
+
+        resetIdleTimer();
+    }
 
 });

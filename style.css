@@ -1,1067 +1,1232 @@
-@font-face {
-  font-family: "DS-Digital";
-  src: url("fonts/DS-DIGI.TTF") format("truetype");
-  font-weight: normal;
-  font-style: normal;
+  @font-face {
+    font-family: "DS-Digital";
+    src: url("fonts/DS-DIGI.TTF") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: "Continuum";
+    src: url("fonts/cont-b.ttf") format("truetype");
+    font-weight: bold;
+    font-style: normal;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    cursor: none !important;
+  }
+
+  * {
+    cursor: none !important;
+  }
+
+  body {
+    margin: 0;
+    display: flex;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(
+        to bottom,
+        #d9dde1,
+        #c6ccd2
+    );
+    overflow: hidden;
+    font-family: "Varela Round", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: 0.2px;
+    cursor: none;
+
+
+  }
+
+  .console {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    /* ESSENCIAL */
+
+    transform: scale(.9);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @keyframes flicker {
+    0% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0.98;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .wiiscreen {
+    position: relative;
+    animation: flicker 0.12s infinite;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    background: linear-gradient(
+        to bottom,
+        #fdfdfd,
+        #eef2f5
+    );
+    border-radius: 8px;
+    box-shadow:
+      inset 0 1px 0 white,
+      inset 0 -1px 0 rgba(0, 0, 0, .05),
+      0 0 20px rgba(0, 0, 0, .08);
+    transform:
+      perspective(2500px) rotateX(1deg);
+  }
+
+
+  .wiiscreen::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background-image: url("imagens/textura.jpg");
+    background-repeat: repeat;
+    background-size: 512px;
+
+    opacity: .15;
+
+    pointer-events: none;
+  }
+
+  .channels {
+    position: absolute;
+    top: 28px;
+    left: 34px;
+
+    width: calc(100% - 68px);
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 135px;
+
+    gap: 18px;
+  }
+
+  #titulo {
+    color: #37b4e7;
+    display: flex;
+    justify-content: center;
+    font-size: 30px;
+    margin-top: -10px;
+
+  }
+
+  .canal {
+    position: relative;
+    background: linear-gradient(to bottom,
+        #ffffff,
+        #f8f8f8);
+
+    border: 4px solid #cfcfcf;
+
+    width: 100%;
+
+    border-radius: 18px;
+
+    box-shadow:
+      inset 0 1px 0 white,
+      0 1px 3px rgba(0, 0, 0, .12);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition:
+      transform .15s ease,
+      box-shadow .15s ease,
+      border-color .15s ease;
+
+  }
+
+  .canal::before {
+    content: "";
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 40%;
+
+    background: linear-gradient(to bottom,
+        rgba(255, 255, 255, .7),
+        transparent);
+
+    pointer-events: none;
+  }
+
+  .canal::after {
+    content: "";
+
+    position: absolute;
+    inset: 4px;
+
+    border-radius: 14px;
+
+    border: 1px solid rgba(255, 255, 255, .8);
+
+    pointer-events: none;
+  }
+
+  .canal img {
+    width: calc(100% - 12px);
+    height: calc(100% - 12px);
+
+    object-fit: cover;
+
+    border-radius: 12px;
+    padding: 6px;
+  }
+
+  .canal:hover {
+    transform: translateY(-2px) scale(1.02);
+
+    border-color: #72d5ff;
+
+    box-shadow:
+      0 0 0 2px rgba(114, 213, 255, .35);
+
+      filter:brightness(1.08);
+
+  }
+
+  .canal:hover img{
+
+    filter:brightness(1.12);
+
 }
 
-@font-face {
-  font-family: "Continuum";
-  src: url("fonts/cont-b.ttf") format("truetype");
-  font-weight: bold;
-  font-style: normal;
-}
+  .canal:hover::after {
+    content: "";
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+    position: absolute;
+    inset: 0;
 
-html,
-body {
-  cursor: none !important;
-}
+    border-radius: 12px;
 
-* {
-  cursor: none !important;
-}
+    pointer-events: none;
+  }
 
-body {
-  margin: 0;
-  display: flex;
-  min-height: 100vh;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(to bottom,
-      #fdfdfd,
-      #eef2f5);
-  overflow: hidden;
-  font-family: "Varela Round", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  letter-spacing: 0.2px;
-  cursor: none;
+  .canal p {
+    height: 30px;
+    margin: 0;
 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-}
+  .canal.abrindo {
+    z-index: 1000;
 
-.console {
-  position: relative;
-  width: 1280px;
-  height: 720px;
-  transform: scale(.9);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+    transform: scale(8);
 
-@keyframes flicker {
-  0% {
+    transition: transform .45s ease;
+  }
+
+  #transicao {
+    position: fixed;
+    inset: 0;
+
+    background: white;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    z-index: 99999;
+
+    transition: opacity .25s ease;
+  }
+
+  #transicao.ativo {
     opacity: 1;
   }
 
-  50% {
-    opacity: 0.98;
+  .canal:hover::before {
+    background:
+      linear-gradient(to bottom,
+        rgba(255, 255, 255, .95),
+        rgba(255, 255, 255, .15));
   }
 
-  100% {
-    opacity: 1;
+  #cursor {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+
+    width: 120px;
+
+    transform: translate(-50%, -50%);
+
+    transition: transform .15s ease;
+    filter:
+      drop-shadow(0 0 8px rgba(55, 180, 231, .3));
+    pointer-events: none;
+
   }
-}
 
-.wiiscreen {
-  position: relative;
-  animation: flicker 0.12s infinite;
-  width: 1280px;
-  height: 720px;
-  overflow: hidden;
-  border-radius: 8px;
-  box-shadow:
-    inset 0 1px 0 white,
-    inset 0 -1px 0 rgba(0, 0, 0, .05),
-    0 0 20px rgba(0, 0, 0, .08);
-  transform:
-    perspective(2500px) rotateX(1deg);
-}
+  #cursor img {
+    width: 100%;
+    display: block;
+  }
 
+  #cursor.hover {
+    transform:
+      translate(-40px, -15px) scale(1.15);
+  }
 
-.wiiscreen::after {
-  content: "";
-  position: absolute;
-  inset: 0;
+  .canal.abrindo {
+    position: relative;
+    z-index: 9999;
 
-  background-image: url("imagens/textura.jpg");
-  background-repeat: repeat;
-  background-size: 512px;
+    transform: scale(12);
 
-  opacity: .15;
+    transition: transform .45s ease;
 
-  pointer-events: none;
-}
+    border-color: #37b4e7;
 
-.channels {
-  position: absolute;
-  top: 28px;
-  left: 34px;
+    box-shadow:
+      0 0 40px rgba(55, 180, 231, .8);
+  }
 
-  width: calc(100% - 68px);
+  #transicao {
+    position: fixed;
+    inset: 0;
 
-  display: grid;
+    background: white;
 
-  grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: 135px;
-
-  gap: 18px;
-}
-
-.wii-footer svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-#titulo {
-  color: #37b4e7;
-  display: flex;
-  justify-content: center;
-  font-size: 30px;
-  margin-top: -10px;
-
-}
-
-.canal {
-  position: relative;
-  background: linear-gradient(to bottom,
-      #ffffff,
-      #f8f8f8);
-
-  border: 4px solid #cfcfcf;
-
-  width: 100%;
-
-  border-radius: 18px;
-
-  box-shadow:
-    inset 0 1px 0 white,
-    0 1px 3px rgba(0, 0, 0, .12);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  transition:
-    transform .15s ease,
-    box-shadow .15s ease,
-    border-color .15s ease;
-
-}
-
-.canal::before {
-  content: "";
-
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  width: 100%;
-  height: 40%;
-
-  background: linear-gradient(to bottom,
-      rgba(255, 255, 255, .7),
-      transparent);
-
-  pointer-events: none;
-}
-
-.canal::after {
-  content: "";
-
-  position: absolute;
-  inset: 4px;
-
-  border-radius: 14px;
-
-  border: 1px solid rgba(255, 255, 255, .8);
-
-  pointer-events: none;
-}
-
-.canal img {
-  width: calc(100% - 12px);
-  height: calc(100% - 12px);
-
-  object-fit: cover;
-
-  border-radius: 12px;
-  padding: 6px;
-}
-
-.canal:hover {
-  transform: translateY(-2px) scale(1.02);
-
-  border-color: #72d5ff;
-
-  box-shadow:
-    0 0 0 2px rgba(114, 213, 255, .35);
-
-}
-
-.canal:hover::after {
-  content: "";
-
-  position: absolute;
-  inset: 0;
-
-  border-radius: 12px;
-
-  pointer-events: none;
-}
-
-.canal p {
-  height: 30px;
-  margin: 0;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.canal.abrindo {
-  z-index: 1000;
-
-  transform: scale(8);
-
-  transition: transform .45s ease;
-}
-
-#transicao {
-  position: fixed;
-  inset: 0;
-
-  background: white;
-
-  opacity: 0;
-
-  pointer-events: none;
-
-  z-index: 99999;
-
-  transition: opacity .25s ease;
-}
-
-#transicao.ativo {
-  opacity: 1;
-}
-
-.canal:hover::before {
-  background:
-    linear-gradient(to bottom,
-      rgba(255, 255, 255, .95),
-      rgba(255, 255, 255, .15));
-}
-
-#cursor {
-  position: fixed;
-  pointer-events: none;
-  z-index: 9999;
-
-  width: 120px;
-
-  transform: translate(-50%, -50%);
-
-  transition: transform .15s ease;
-  filter:
-    drop-shadow(0 0 8px rgba(55, 180, 231, .3));
-  pointer-events: none;
-
-}
-
-#cursor img {
-  width: 100%;
-  display: block;
-}
-
-#cursor.hover {
-  transform:
-    translate(-40px, -15px) scale(1.15);
-}
-
-.canal.abrindo {
-  position: relative;
-  z-index: 9999;
-
-  transform: scale(12);
-
-  transition: transform .45s ease;
-
-  border-color: #37b4e7;
-
-  box-shadow:
-    0 0 40px rgba(55, 180, 231, .8);
-}
-
-#transicao {
-  position: fixed;
-  inset: 0;
-
-  background: white;
-
-  opacity: 0;
-
-  pointer-events: none;
-
-  z-index: 99999;
-
-  transition: opacity .25s ease;
-}
-
-#transicao.ativo {
-  opacity: 1;
-}
-
-.wii-footer {
-  position: absolute;
-
-  bottom: 0;
-  left: 0;
-
-  width: 100%;
-  height: 90px;
-  background:
-    linear-gradient(to bottom,
-      #ececec,
-      #d8d8d8);
-
-}
-
-.wii-footer::before {
-  content: "";
-
-  position: absolute;
-
-  left: 0;
-  width: 100%;
-
-  top: -78px;
-
-  height: 90px;
-
-  border-bottom: 3px solid #6fcff7;
-
-  border-radius: 0 0 50% 50%;
-}
-
-
-.footer-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  position: absolute;
-
-  left: 50%;
-
-  bottom: 45px;
-
-  transform: translateX(-50%);
-
-  z-index: 5;
-}
-
-
-#start-screen {
-  position: fixed;
-  inset: 0;
-
-  background: radial-gradient(circle at center,
-      #ffffff 0%,
-      #e9f2f7 45%,
-      #cfe6f3 100%);
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  z-index: 999999;
-
-  transition: opacity .6s ease;
-}
-
-#top-controls {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-
-  display: flex;
-  align-items: center;
-  gap: 12px;
-
-  z-index: 999;
-}
-
-.control-btn {
-  width: 44px;
-  height: 44px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 12px;
-
-  background: rgba(255, 255, 255, 0.55);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-
-  backdrop-filter: blur(10px);
-
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.8),
-    0 6px 16px rgba(0,0,0,0.08);
-
-  cursor: pointer;
-
-  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
-}
-
-.control-btn:hover {
-  transform: translateY(-2px) scale(1.05);
-
-  background: rgba(255, 255, 255, 0.75);
-
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.9),
-    0 10px 24px rgba(0,0,0,0.12);
-}
-
-.theme .icon {
-  position: absolute;
-
-  font-size: 20px;
-
-  transition: all .25s ease;
-
-  opacity: .35;
-  transform: scale(.9) rotate(-5deg);
-
-  filter: drop-shadow(0 2px 2px rgba(0,0,0,.15));
-}
-
-body:not(.dark) .theme .light {
-  opacity: 1;
-  transform: scale(1.25) rotate(0deg);
-
-  filter:
-    drop-shadow(0 0 10px rgba(255, 220, 120, .8))
-    drop-shadow(0 2px 3px rgba(0,0,0,.15));
-}
-
-body.dark .theme .dark {
-  opacity: 1;
-  transform: scale(1.25) rotate(0deg);
-
-  color: #63d7ff;
-
-  filter:
-    drop-shadow(0 0 10px rgba(99, 215, 255, .7))
-    drop-shadow(0 2px 3px rgba(0,0,0,.2));
-}
-
-body.dark .theme .light,
-body:not(.dark) .theme .dark {
-  opacity: .2;
-  transform: scale(.85);
-  filter: none;
-}
-
-.volume-control {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-
-  background: rgba(255, 255, 255, 0.8);
-  border: 1px solid #ccc;
-  padding: 6px 10px;
-  border-radius: 10px;
-  transition: all .2s ease;
-}
-
-.volume-control:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 12px rgba(99, 215, 255, .25);
-}
-
-#volume-slider {
-  width: 90px;
-}
-
-body,
-.wiiscreen,
-.wii-footer,
-.canal,
-#hora,
-#data,
-#channel-tooltip {
-  transition: all .4s ease;
-}
-
-body.dark {
-  background: linear-gradient(to bottom,
-      #0b0f12,
-      #1a2228);
-}
-
-body.dark .wiiscreen {
-  background: radial-gradient(circle at top,
-      #2a3238,
-      #181e23 65%);
-
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, .08),
-    inset 0 -1px 0 rgba(0, 0, 0, .4),
-    0 0 30px rgba(0, 0, 0, .5);
-}
-
-body.dark .canal {
-  background: linear-gradient(to bottom,
-      #3b444c,
-      #2a3138);
-
-  border-color: #505860;
-
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, .06),
-    0 2px 6px rgba(0, 0, 0, .5);
-}
-
-body.dark .canal:hover {
-  border-color: #63d7ff;
-
-  box-shadow:
-    0 0 20px rgba(99, 215, 255, .25);
-}
-
-body.dark .wii-footer {
-  background: linear-gradient(to bottom,
-      #303840,
-      #23292f);
-}
-
-body.dark #hora {
-  color: #d6eaf3;
-
-  text-shadow:
-    0 0 10px rgba(99, 215, 255, .25);
-}
-
-body.dark #data {
-  color: #b8c7cf;
-}
-
-body.dark #channel-tooltip {
-  background: #303840;
-  color: #e5eef2;
-
-  box-shadow:
-    0 4px 15px rgba(0, 0, 0, .45);
-}
-
-body.dark #channel-tooltip::after {
-  border-bottom-color: #303840;
-}
-
-#start-screen h1 {
-  color: #5a6b76;
-  font-size: 80px;
-  font-family: "Continuum", sans-serif;
-  letter-spacing: 2px;
-}
-
-body.dark #start-screen {
-  background: radial-gradient(circle at center,
-      #1c2329 0%,
-      #13181d 50%,
-      #0b0f12 100%);
-}
-
-body.dark .wiiscreen::after {
-  opacity: .08;
-  filter: invert(1);
-}
-
-body.dark #start-screen h1 {
-  color: #cfe6f3;
-}
-
-body.dark #start-screen p {
-  color: #a8bac6;
-}
-
-body.dark {
-  background: linear-gradient(to bottom, #0b0f12, #11181d);
-}
-
-.theme {
-  position: relative;
-  width: 42px;
-  height: 42px;
-}
-
-/* base dos ícones */
-.theme .icon {
-  position: absolute;
-  transition: all .25s ease;
-  opacity: .35;
-  transform: scale(.9);
-}
-
-/* 🔆 modo CLARO ativo → lâmpada forte */
-body:not(.dark) .theme .light {
-  opacity: 1;
-  transform: scale(1.2);
-  filter: drop-shadow(0 0 8px rgba(255, 220, 120, .6));
-}
-
-/* modo claro → power apagado */
-body:not(.dark) .theme .dark {
-  opacity: .25;
-}
-
-/* 🌙 modo ESCURO ativo → power forte */
-body.dark .theme .dark {
-  opacity: 1;
-  transform: scale(1.2);
-  filter: drop-shadow(0 0 8px rgba(99, 215, 255, .4));
-}
-
-/* modo escuro → lâmpada apagada */
-body.dark .theme .light {
-  opacity: .2;
-}
-
-
-
-#start-screen p {
-  color: #6f7f89;
-  font-size: 20px;
-  font-family: "Continuum", sans-serif;
-}
-
-#start-screen.esconder {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.wii-button {
-  width: 70px;
-  height: 70px;
-
-  border-radius: 50%;
-
-  background: linear-gradient(to bottom,
-      #ffffff,
-      #d9d9d9);
-
-  border: 2px solid #72ccef;
-
-  position: absolute;
-  bottom: 12px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  color: #8c8c8c;
-  font-size: 32px;
-  transition:
-    transform .15s ease,
-    box-shadow .15s ease;
-  box-shadow:
-    0 0 0 2px rgba(114, 204, 239, .15),
-    inset 0 2px 2px white,
-    inset 0 -2px 4px rgba(0, 0, 0, .12),
-    0 2px 4px rgba(0, 0, 0, .15);
-}
-
-.wii-button:hover {
-  transform: scale(1.08);
-
-  box-shadow:
-    0 0 18px rgba(114, 204, 239, .45),
-    0 0 0 3px rgba(114, 204, 239, .2),
-    inset 0 2px 2px white,
-    inset 0 -2px 4px rgba(0, 0, 0, .12),
-    0 2px 4px rgba(0, 0, 0, .15);
-}
-
-.footer-channel-name {
-  position: absolute;
-
-  left: 50%;
-  top: -38px;
-
-  transform: translateX(-50%);
-
-  background: white;
-
-  padding: 8px 22px;
-
-  border-radius: 20px;
-
-  border: 1px solid #d5d5d5;
-
-  color: #555;
-
-  font-size: 18px;
-
-  opacity: 0;
-
-  transition: .15s;
-}
-
-#channel-tooltip {
-  position: absolute;
-
-  background: white;
-
-  padding: 12px 30px;
-
-  border-radius: 999px;
-
-  font-size: 22px;
-  color: #444;
-
-  box-shadow:
-    0 4px 12px rgba(0, 0, 0, .15);
-
-  opacity: 0;
-
-  transform: translateX(-50%);
-
-  transition:
-    opacity .15s ease,
-    transform .15s ease;
-
-  pointer-events: none;
-
-  z-index: 5000;
-}
-
-#channel-tooltip::after {
-  content: "";
-
-  position: absolute;
-
-  top: -8px;
-  left: 50%;
-
-  transform: translateX(-50%);
-
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-bottom: 8px solid white;
-}
-
-.wii-button.left {
-  left: 40px;
-  border-color: #63d7ff;
-
-  box-shadow:
-    0 0 12px rgba(99, 215, 255, .4),
-    inset 0 2px 2px white,
-    inset 0 -2px 4px rgba(0, 0, 0, .15);
-}
-
-.wii-button.right {
-  right: 40px;
-  border-color: #63d7ff;
-
-  box-shadow:
-    0 0 12px rgba(99, 215, 255, .4),
-    inset 0 2px 2px white,
-    inset 0 -2px 4px rgba(0, 0, 0, .15);
-}
-
-#hora {
-  font-family: "DS-Digital", sans-serif;
-  font-size: 64px;
-  font-weight: bolder;
-
-  color: #6e6e6e;
-
-  letter-spacing: 2px;
-  line-height: 1;
-  padding-bottom: 15px;
-  text-shadow:
-    0 1px 0 white,
-    0 0 6px rgba(255, 255, 255, .6);
-}
-
-#data {
-  font-size: 25px;
-  color: #777;
-}
-
-#botaoControle {
-  width: 20px;
-}
-
-#paw-hit {
-  position: fixed;
-  left: 50%;
-  bottom: 0;
-  transform: translate(-50%, 200px);
-  z-index: 9999999;
-  pointer-events: auto;
-  cursor: pointer;
-  opacity: 0;
-}
-
-#paw-hit img {
-  width: 600px;
-  display: block;
-  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, .35));
-}
-
-/* animação de batida */
-#paw-hit.active {
-  animation: pawHit .6s ease forwards;
-}
-
-@keyframes pawHit {
-  0% {
     opacity: 0;
-    transform: translate(-50%, 200px) scale(0.9);
+
+    pointer-events: none;
+
+    z-index: 99999;
+
+    transition: opacity .25s ease;
   }
 
-  40% {
-    opacity: 1;
-    transform: translate(-50%, -20px) scale(1.05);
-  }
-
-  55% {
-    transform: translate(-50%, 0px) scale(1);
-  }
-
-  70% {
-    transform: translate(-50%, 0px) scale(1);
-  }
-
-  100% {
-    opacity: 0;
-    transform: translate(-50%, 200px) scale(0.95);
-  }
-}
-
-.ripple {
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  width: 30px;
-  height: 30px;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  border: 2px solid rgba(99, 215, 255, 0.6);
-  animation: rippleAnim 0.8s ease-out forwards;
-}
-
-@keyframes rippleAnim {
-  0% {
-    transform: translate(-50%, -50%) scale(0.3);
-    opacity: 0.9;
-  }
-
-  100% {
-    transform: translate(-50%, -50%) scale(10);
-    opacity: 0;
-    border-width: 1px;
-  }
-}
-
-body.hit {
-  animation: shake .2s ease;
-}
-
-@keyframes shake {
-  0% {
-    transform: translate(0, 0);
-  }
-
-  25% {
-    transform: translate(2px, -2px);
-  }
-
-  50% {
-    transform: translate(-2px, 2px);
-  }
-
-  75% {
-    transform: translate(2px, 2px);
-  }
-
-  100% {
-    transform: translate(0, 0);
-  }
-}
-
-/* flash da tela */
-#screen-flash {
-  position: fixed;
-  inset: 0;
-  background: white;
-  opacity: 0;
-  z-index: 9999998;
-  pointer-events: none;
-}
-
-#screen-flash.active {
-  animation: flash .4s ease;
-}
-
-@keyframes flash {
-  0% {
-    opacity: 0;
-  }
-
-  20% {
+  #transicao.ativo {
     opacity: 1;
   }
 
-  100% {
+  .wii-footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 150px;
+
+    z-index: 20;
+  }
+
+  .wii-curve {
+    position: absolute;
+    left: 0;
+    bottom: 0px;
+    /* importante */
+
+    width: 100%;
+    height: 220px;
+
+    background: url("imagens/linha.png") no-repeat bottom center;
+    background-size: cover;
+
+    z-index: 1;
+
+    pointer-events: none;
+  }
+
+
+  .footer-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: absolute;
+
+    left: 50%;
+
+    bottom: 45px;
+
+    transform: translateX(-50%);
+
+    z-index: 10;
+  }
+
+
+  #start-screen {
+    position: fixed;
+    inset: 0;
+
+    background: radial-gradient(circle at center,
+        #ffffff 0%,
+        #e9f2f7 45%,
+        #cfe6f3 100%);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 999999;
+
+    transition: opacity .6s ease;
+  }
+
+  #top-controls {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    z-index: 999;
+  }
+
+  .control-btn {
+    width: 44px;
+    height: 44px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+
+    backdrop-filter: blur(10px);
+
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.8),
+      0 6px 16px rgba(0, 0, 0, 0.08);
+
+    cursor: pointer;
+
+    transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+  }
+
+  .control-btn:hover {
+    transform: translateY(-2px) scale(1.05);
+
+    background: rgba(255, 255, 255, 0.75);
+
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.9),
+      0 10px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  .theme .icon {
+    position: absolute;
+
+    font-size: 20px;
+
+    transition: all .25s ease;
+
+    opacity: .35;
+    transform: scale(.9) rotate(-5deg);
+
+    filter: drop-shadow(0 2px 2px rgba(0, 0, 0, .15));
+  }
+
+  body:not(.dark) .theme .light {
+    opacity: 1;
+    transform: scale(1.25) rotate(0deg);
+
+    filter:
+      drop-shadow(0 0 10px rgba(255, 220, 120, .8)) drop-shadow(0 2px 3px rgba(0, 0, 0, .15));
+  }
+
+  body.dark .theme .dark {
+    opacity: 1;
+    transform: scale(1.25) rotate(0deg);
+
+    color: #63d7ff;
+
+    filter:
+      drop-shadow(0 0 10px rgba(99, 215, 255, .7)) drop-shadow(0 2px 3px rgba(0, 0, 0, .2));
+  }
+
+  body.dark .theme .light,
+  body:not(.dark) .theme .dark {
+    opacity: .2;
+    transform: scale(.85);
+    filter: none;
+  }
+
+  .volume-control {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid #ccc;
+    padding: 6px 10px;
+    border-radius: 10px;
+    transition: all .2s ease;
+  }
+
+  .volume-control:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 12px rgba(99, 215, 255, .25);
+  }
+
+  #volume-slider {
+    width: 90px;
+  }
+
+  body,
+  .wiiscreen,
+  .wii-footer,
+  .canal,
+  #hora,
+  #data,
+  #channel-tooltip {
+    transition: all .4s ease;
+  }
+
+  body.dark {
+    background:
+      linear-gradient(to bottom,
+        #202d37 0%,
+        #2a3945 40%,
+        #1b252d 100%);
+  }
+
+  body.dark .wiiscreen{
+
+    background:
+
+    radial-gradient(
+        circle at top,
+        #465864 0%,
+        #29333c 60%,
+        #1b232a 100%
+    );
+
+    box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08),
+    inset 0 -2px 8px rgba(0,0,0,.35),
+    0 0 60px rgba(0,0,0,.45);
+
+}
+
+  body.dark .canal{
+
+    background:
+
+    linear-gradient(
+        to bottom,
+        #eef4f8,
+        #cfd9df
+    );
+
+    border-color:#8f9ba3;
+
+}
+
+body.dark .canal img{
+
+    filter:
+    brightness(.78)
+    contrast(1.05);
+
+}
+
+  body.dark .canal:hover {
+    border-color: #63d7ff;
+
+    box-shadow:
+      0 0 20px rgba(99, 215, 255, .25);
+  }
+
+
+  body.dark #hora {
+    color: #d6eaf3;
+
+    text-shadow:
+      0 0 10px rgba(99, 215, 255, .25);
+      z-index: 999;
+  }
+
+  body.dark #data {
+    color: #b8c7cf;
+    z-index: 9999;
+  }
+
+  body.dark #channel-tooltip {
+    background: #303840;
+    color: #e5eef2;
+
+    box-shadow:
+      0 4px 15px rgba(0, 0, 0, .45);
+  }
+
+  body.dark #channel-tooltip::after {
+    border-bottom-color: #303840;
+  }
+
+  #start-screen h1 {
+    color: #5a6b76;
+    font-size: 80px;
+    font-family: "Continuum", sans-serif;
+    letter-spacing: 2px;
+  }
+
+  body.dark #start-screen {
+    background: radial-gradient(circle at center,
+        #1c2329 0%,
+        #13181d 50%,
+        #0b0f12 100%);
+  }
+
+  body.dark .wiiscreen::after {
+    opacity: .08;
+    filter: invert(1);
+  }
+
+  body.dark #start-screen h1 {
+    color: #cfe6f3;
+  }
+
+  body.dark #start-screen p {
+    color: #a8bac6;
+  }
+
+  body.dark {
+    background: linear-gradient(to bottom, #0b0f12, #11181d);
+  }
+
+  body.dark .wii-curve{
+
+    filter:
+    brightness(.55)
+    saturate(.8);
+
+    z-index: 99;
+     opacity: .6;
+
+}
+
+body.dark .wii-button{
+
+    background:
+
+    linear-gradient(
+        to bottom,
+        #555,
+        #303030
+    );
+
+    color:#d9d9d9;
+
+    border-color:#67d5ff;
+
+    box-shadow:
+
+    inset 0 2px 2px rgba(255,255,255,.08),
+    inset 0 -3px 4px rgba(0,0,0,.45),
+    0 0 15px rgba(99,215,255,.18);
+
+}
+
+body.dark .footer-pill{
+
+    background:
+
+    linear-gradient(
+        to bottom,
+        #4f5559,
+        #363b3f
+    );
+
+}
+
+body.dark #hora{
+
+    color:#cfefff;
+
+    text-shadow:
+
+    0 0 8px rgba(99,215,255,.4);
+    z-index:9999;
+
+}
+
+body.dark #channel-tooltip{
+
+    background:#4c5964;
+
+    color:white;
+
+}
+
+body.dark #cursor{
+
+    filter:
+
+    drop-shadow(0 0 18px rgba(99,215,255,.8));
+
+}
+
+body.dark #light-ceiling{
+
+    opacity:.9;
+
+    background:
+
+    radial-gradient(
+
+        circle at top,
+
+        rgba(120,220,255,.18),
+
+        transparent 45%
+
+    );
+
+}
+
+  .theme {
+    position: relative;
+    width: 42px;
+    height: 42px;
+  }
+
+  /* base dos ícones */
+  .theme .icon {
+    position: absolute;
+    transition: all .25s ease;
+    opacity: .35;
+    transform: scale(.9);
+  }
+
+  /* 🔆 modo CLARO ativo → lâmpada forte */
+  body:not(.dark) .theme .light {
+    opacity: 1;
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 8px rgba(255, 220, 120, .6));
+  }
+
+  /* modo claro → power apagado */
+  body:not(.dark) .theme .dark {
+    opacity: .25;
+  }
+
+  /* 🌙 modo ESCURO ativo → power forte */
+  body.dark .theme .dark {
+    opacity: 1;
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 8px rgba(99, 215, 255, .4));
+  }
+
+  /* modo escuro → lâmpada apagada */
+  body.dark .theme .light {
+    opacity: .2;
+  }
+
+
+
+  #start-screen p {
+    color: #6f7f89;
+    font-size: 20px;
+    font-family: "Continuum", sans-serif;
+  }
+
+  #start-screen.esconder {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .wii-button {
+    position: absolute;
+
+    width: 125px;
+    height: 125px;
+
+    bottom: -5px;
+
+    border-radius: 50%;
+    background: linear-gradient(to bottom,
+        #ffffff,
+        #D3D3D3);
+
+    box-shadow:
+      0 2px 3px #D3D3D3,
+      inset 0 1px 1px rgba(255, 255, 255, 0.8);
+
+    border: 2px solid #72ccef;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 32px;
+
+    color: #7a7a7a;
+  }
+
+
+  .wii-left {
+    right: 15px;
+    color: #AFAFAF;
+    box-shadow:
+      0 0 12px rgba(99, 215, 255, .4),
+      inset 0 2px 2px white,
+      inset 0 -2px 4px rgba(0, 0, 0, .15);
+
+  }
+
+  .wii-right {
+    left: 8px;
+    font-size: 80px;
+    color: #AFAFAF;
+    font-weight: bolder;
+
+    box-shadow:
+      0 0 12px rgba(99, 215, 255, .4),
+      inset 0 2px 2px white,
+      inset 0 -2px 4px rgba(0, 0, 0, .15);
+  }
+
+  .wii-button:hover {
+    transform: scale(1.08);
+
+    box-shadow:
+      0 0 18px rgba(114, 204, 239, .45),
+      0 0 0 3px rgba(114, 204, 239, .2),
+      inset 0 2px 2px white,
+      inset 0 -2px 4px rgba(0, 0, 0, .12),
+      0 2px 4px rgba(0, 0, 0, .15);
+  }
+
+  .footer-pill {
+    position: absolute;
+
+    width: 240px;
+    height: 105px;
+
+    bottom: -5px;
+
+    background: linear-gradient(to bottom,
+        #f5f5f5,
+        #d9d9d9);
+
+    border-radius: 999px;
+
+    box-shadow:
+      inset 0 2px 3px rgba(255, 255, 255, .9),
+      inset 0 -2px 3px rgba(0, 0, 0, .08);
+
+    z-index: 30;
+  }
+
+  .left-pill {
+    left: -50px;
+    bottom: 32px;
+  }
+
+  .right-pill {
+    right: -50px;
+    bottom: 32px;
+  }
+
+  .footer-channel-name {
+    position: absolute;
+
+    left: 50%;
+    top: -38px;
+
+    transform: translateX(-50%);
+
+    background: white;
+
+    padding: 8px 22px;
+
+    border-radius: 20px;
+
+    border: 1px solid #d5d5d5;
+
+    color: #555;
+
+    font-size: 18px;
+
+    opacity: 0;
+
+    transition: .15s;
+  }
+
+  #channel-tooltip {
+    position: absolute;
+
+    background: white;
+
+    padding: 12px 30px;
+
+    border-radius: 999px;
+
+    font-size: 22px;
+    color: #444;
+
+    box-shadow:
+      0 4px 12px rgba(0, 0, 0, .15);
+
+    opacity: 0;
+
+    transform: translateX(-50%);
+
+    transition:
+      opacity .15s ease,
+      transform .15s ease;
+
+    pointer-events: none;
+
+    z-index: 5000;
+  }
+
+  #channel-tooltip::after {
+    content: "";
+
+    position: absolute;
+
+    top: -8px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid white;
+  }
+
+  .wii-button.left {
+    border-color: #63d7ff;
+
+    box-shadow:
+      0 0 12px rgba(99, 215, 255, .4),
+      inset 0 2px 2px white,
+      inset 0 -2px 4px rgba(0, 0, 0, .15);
+  }
+
+  .wii-button.right {
+    border-color: #63d7ff;
+
+    box-shadow:
+      0 0 12px rgba(99, 215, 255, .4),
+      inset 0 2px 2px white,
+      inset 0 -2px 4px rgba(0, 0, 0, .15);
+  }
+
+  #hora {
+    font-family: "DS-Digital", sans-serif;
+    font-size: 64px;
+    font-weight: bolder;
+
+    color: #6e6e6e;
+
+    letter-spacing: 2px;
+    line-height: 1;
+    padding-bottom: 15px;
+    text-shadow:
+      0 1px 0 white,
+      0 0 6px rgba(255, 255, 255, .6);
+  }
+
+  #data {
+    position: relative;
+    z-index: 9999;
+
+    font-size: 25px;
+    color: #777;
+  }
+
+  #botaoControle {
+    width: 20px;
+  }
+
+  #paw-hit {
+    position: fixed;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, 200px);
+    z-index: 9999999;
+    pointer-events: none;
+    cursor: pointer;
     opacity: 0;
   }
-}
 
-#screensaver {
-  position: fixed;
-  inset: 0;
-
-  background: rgba(0, 0, 0, .92);
-
-  display: none;
-  justify-content: center;
-  align-items: center;
-
-  z-index: 999999;
-  overflow: hidden;
-}
-
-#screensaver.active {
-  display: block;
-}
-
-#dvd-logo {
-  position: absolute;
-
-  font-family: "Continuum", sans-serif;
-  font-size: 48px;
-
-  color: white;
-
-  text-shadow:
-    0 0 20px rgba(99, 215, 255, .6);
-  transition: color .2s ease, text-shadow .2s ease, transform .2s ease;
-  transform-origin: top left;
-
-}
-
-#dvd-logo.hit {
-  text-shadow: 0 0 25px rgba(var(--hit-rgb), .8);
-}
-
-#light-ceiling {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 999999;
-
-  opacity: 0;
-  transition: opacity 0.2s ease, background 0.2s ease;
-
-  filter: blur(12px);
-  mix-blend-mode: screen;
-
-  background: radial-gradient(circle at top,
-      rgba(255, 255, 255, 0.25),
-      transparent 45%);
-}
-
-#zoom-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 999999;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity .3s ease;
-}
-
-#zoom-overlay.active {
-  opacity: 1;
-}
-
-body.zooming .wiiscreen {
-  filter: blur(6px);
-  transform: scale(1.02);
-}
-
-#paw-hit.active {
-  animation: pawHit .6s ease forwards;
-}
-
-#color-wave {
-  position: fixed;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 999999;
-
-  background: rgba(114, 213, 255, 0.35);
-
-  left: 0;
-  top: 0;
-
-  transform: translate(-50%, -50%) scale(0);
-  opacity: 0;
-}
-
-#color-wave.active {
-  animation: rippleClick 600ms ease-out forwards;
-}
-
-@keyframes rippleClick {
-  0% {
-    transform: translate(-50%, -50%) scale(0.3);
-    opacity: 0.8;
+  #paw-hit img {
+    width: 600px;
+    display: block;
+    filter: drop-shadow(0 20px 30px rgba(0, 0, 0, .35));
   }
 
-  100% {
-    transform: translate(-50%, -50%) scale(6);
+  /* animação de batida */
+  #paw-hit.active {
+    animation: pawHit .6s ease forwards;
+  }
+
+  @keyframes pawHit {
+    0% {
+      opacity: 0;
+      transform: translate(-50%, 200px) scale(0.9);
+    }
+
+    40% {
+      opacity: 1;
+      transform: translate(-50%, -20px) scale(1.05);
+    }
+
+    55% {
+      transform: translate(-50%, 0px) scale(1);
+    }
+
+    70% {
+      transform: translate(-50%, 0px) scale(1);
+    }
+
+    100% {
+      opacity: 0;
+      transform: translate(-50%, 200px) scale(0.95);
+    }
+  }
+
+  .ripple {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    width: 30px;
+    height: 30px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 2px solid rgba(99, 215, 255, 0.6);
+    animation: rippleAnim 0.8s ease-out forwards;
+  }
+
+  @keyframes rippleAnim {
+    0% {
+      transform: translate(-50%, -50%) scale(0.3);
+      opacity: 0.9;
+    }
+
+    100% {
+      transform: translate(-50%, -50%) scale(10);
+      opacity: 0;
+      border-width: 1px;
+    }
+  }
+
+  body.hit {
+    animation: shake .2s ease;
+  }
+
+  @keyframes shake {
+    0% {
+      transform: translate(0, 0);
+    }
+
+    25% {
+      transform: translate(2px, -2px);
+    }
+
+    50% {
+      transform: translate(-2px, 2px);
+    }
+
+    75% {
+      transform: translate(2px, 2px);
+    }
+
+    100% {
+      transform: translate(0, 0);
+    }
+  }
+
+  /* flash da tela */
+  #screen-flash {
+    position: fixed;
+    inset: 0;
+    background: white;
     opacity: 0;
+    z-index: 9999998;
+    pointer-events: none;
   }
-}
 
+  #screen-flash.active {
+    animation: flash .4s ease;
+  }
 
-@keyframes waveExpand {
-  0% {
+  @keyframes flash {
+    0% {
+      opacity: 0;
+    }
+
+    20% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
+    }
+  }
+
+  #screensaver {
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0, 0, 0, .92);
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 999999;
+    overflow: hidden;
+  }
+
+  #screensaver.active {
+    display: block;
+  }
+
+  #dvd-logo {
+    position: absolute;
+
+    font-family: "Continuum", sans-serif;
+    font-size: 48px;
+
+    color: white;
+
+    text-shadow:
+      0 0 20px rgba(99, 215, 255, .6);
+    transition: color .2s ease, text-shadow .2s ease, transform .2s ease;
+    transform-origin: top left;
+
+  }
+
+  #dvd-logo.hit {
+    text-shadow: 0 0 25px rgba(var(--hit-rgb), .8);
+  }
+
+  #light-ceiling {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 999999;
+
+    opacity: 0;
+    transition: opacity 0.2s ease, background 0.2s ease;
+
+    filter: blur(12px);
+    mix-blend-mode: screen;
+
+    background: radial-gradient(circle at top,
+        rgba(255, 255, 255, 0.25),
+        transparent 45%);
+  }
+
+  #zoom-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .3s ease;
+  }
+
+  #zoom-overlay.active {
+    opacity: 1;
+  }
+
+  body.zooming .wiiscreen {
+    filter: blur(6px);
+    transform: scale(1.02);
+  }
+
+  #paw-hit.active {
+    animation: pawHit .6s ease forwards;
+  }
+
+  #color-wave {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 999999;
+
+    background: rgba(114, 213, 255, 0.35);
+
+    left: 0;
+    top: 0;
+
     transform: translate(-50%, -50%) scale(0);
-    opacity: 1;
-  }
-
-  100% {
-    transform: translate(-50%, -50%) scale(60);
     opacity: 0;
   }
-}
 
-@keyframes waveExpand {
-  0% {
-    transform: translate(-50%, -50%) scale(0);
-    opacity: 1;
+  #color-wave.active {
+    animation: rippleClick 600ms ease-out forwards;
   }
 
-  100% {
-    transform: translate(-50%, -50%) scale(60);
-    opacity: 0;
+  @keyframes rippleClick {
+    0% {
+      transform: translate(-50%, -50%) scale(0.3);
+      opacity: 0.8;
+    }
+
+    100% {
+      transform: translate(-50%, -50%) scale(6);
+      opacity: 0;
+    }
   }
-}
+
+
+  @keyframes waveExpand {
+    0% {
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 1;
+    }
+
+    100% {
+      transform: translate(-50%, -50%) scale(60);
+      opacity: 0;
+    }
+  }
+
+  @keyframes waveExpand {
+    0% {
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 1;
+    }
+
+    100% {
+      transform: translate(-50%, -50%) scale(60);
+      opacity: 0;
+    }
+  }

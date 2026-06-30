@@ -1,5 +1,16 @@
 // ================= SCREENSAVER MODULE =================
 
+const cores = [
+    "#ff4d4d", // vermelho
+    "#4dff88", // verde
+    "#4db8ff", // azul
+    "#ffd24d", // amarelo
+    "#ff4df2", // rosa
+    "#9d4dff", // roxo
+    "#ffffff", // branco
+    "#63d7ff"  // azul Wii
+];
+
 const screensaver = document.getElementById("screensaver");
 const dvdLogo = document.getElementById("dvd-logo");
 
@@ -27,9 +38,11 @@ window.addEventListener("load", () => {
 });
 
 function getBounds() {
+    const rect = dvdLogo.getBoundingClientRect();
+
     return {
-        w: baseW * scale,
-        h: baseH * scale
+        w: rect.width,
+        h: rect.height
     };
 }
 
@@ -42,8 +55,8 @@ function resetIdleTimer() {
     clearTimeout(idleTimer);
 
     if (screensaverAtivo) pararScreensaver();
-
-    idleTimer = setTimeout(iniciarScreensaver, 10000);
+    // 30 segundos
+    idleTimer = setTimeout(iniciarScreensaver, 30000);
 }
 
 document.addEventListener("mousemove", resetIdleTimer);
@@ -121,6 +134,11 @@ function moverLogo() {
         triggerHitEffect();
     }
 
+    const bounds = getBounds();
+
+    x = Math.max(0, Math.min(x, window.innerWidth - bounds.w));
+    y = Math.max(0, Math.min(y, window.innerHeight - bounds.h));
+
     dvdLogo.style.left = x + "px";
     dvdLogo.style.top = y + "px";
     dvdLogo.style.transform = `scale(${scale})`;
@@ -130,13 +148,30 @@ function moverLogo() {
 
 // ================= EFEITO =================
 function triggerHitEffect() {
+
     dvdLogo.classList.remove("hit");
     void dvdLogo.offsetWidth;
     dvdLogo.classList.add("hit");
 
-    scale = Math.min(scale + 0.03, MAX_SCALE);
+    // cresce
+    scale = Math.min(scale + 0.08, MAX_SCALE);
+
+    // acelera
     dx *= 1.03;
     dy *= 1.03;
+
+    // limita velocidade
+    dx = Math.sign(dx) * Math.min(Math.abs(dx), MAX_SPEED);
+    dy = Math.sign(dy) * Math.min(Math.abs(dy), MAX_SPEED);
+
+    // cor aleatória
+    const cor = cores[Math.floor(Math.random() * cores.length)];
+
+    dvdLogo.style.color = cor;
+    dvdLogo.style.textShadow = `
+        0 0 25px ${cor},
+        0 0 50px ${cor}
+    `;
 }
 
 window.resetIdleTimer = resetIdleTimer;
