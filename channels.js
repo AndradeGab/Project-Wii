@@ -14,6 +14,13 @@ window.addEventListener("DOMContentLoaded", () => {
             imagem: "imagens/animeflix.png",
             url: "https://gabrielandrade.dev.br/"
         },
+
+        {
+            nome: "Le Chef A la Dev",
+            imagem: "imagens/restaurante.png",
+            url: "https://andradegab.github.io/Le-Chef-La-Dev/"
+        },
+
         {
             nome: "Projeto Globo",
             imagem: "imagens/globo.png",
@@ -24,7 +31,7 @@ window.addEventListener("DOMContentLoaded", () => {
             imagem: "imagens/lista.png",
             url: "https://andradegab.github.io/Lista-de-Compras/"
         },
-        ...Array(9).fill({
+        ...Array(8).fill({
             nome: "Em Breve!",
             imagem: "imagens/wii.jpg",
             url: "https://www.linkedin.com/in/gabriel-andrade-a26025319/"
