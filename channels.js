@@ -18,7 +18,7 @@ window.addEventListener("DOMContentLoaded", () => {
         {
             nome: "Le Chef A la Dev",
             imagem: "imagens/restaurante.png",
-            url: "https://andradegab.github.io/Le-Chef-La-Dev/"
+            url: "https://andradegab.github.io/Le-Chef-a-La-Dev/"
         },
 
         {
