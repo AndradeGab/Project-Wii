@@ -16,6 +16,12 @@ window.addEventListener("DOMContentLoaded", () => {
         },
 
         {
+            nome: "Clube Atlético Vale do Cedro",
+            imagem: "imagens/Vale-do-Cedro.png",
+            url: "https://andradegab.github.io/Projeto-Clube-de-Futebol/"
+        },
+
+        {
             nome: "Le Chef A la Dev",
             imagem: "imagens/restaurante.png",
             url: "https://andradegab.github.io/Le-Chef-a-La-Dev/"
@@ -27,11 +33,6 @@ window.addEventListener("DOMContentLoaded", () => {
             url: "https://andradegab.github.io/Projeto-Globo/"
         },
 
-          {
-            nome: "Clube Atlético Vale do Cedro",
-            imagem: "imagens/Vale-do-Cedro.png",
-            url: "https://andradegab.github.io/Projeto-Clube-de-Futebol/"
-        },
         {
             nome: "Lista de Compras",
             imagem: "imagens/lista.png",
