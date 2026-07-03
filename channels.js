@@ -37,7 +37,7 @@ window.addEventListener("DOMContentLoaded", () => {
             imagem: "imagens/lista.png",
             url: "https://andradegab.github.io/Lista-de-Compras/"
         },
-        ...Array(8).fill({
+        ...Array(7).fill({
             nome: "Em Breve!",
             imagem: "imagens/wii.jpg",
             url: "https://www.linkedin.com/in/gabriel-andrade-a26025319/"
