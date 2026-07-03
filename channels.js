@@ -17,7 +17,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
         {
             nome: "Clube Atlético Vale do Cedro",
-            imagem: "imagens/Vale-do-Cedro.png",
+            imagem: "imagens/vale-do-cedro.png",
             url: "https://andradegab.github.io/Projeto-Clube-de-Futebol/"
         },
 
