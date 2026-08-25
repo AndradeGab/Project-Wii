@@ -6,6 +6,7 @@ const AudioManager = {
     liga: new Audio("audio/liga.mp3"),
     desliga: new Audio("audio/desliga.mp3"),
     bgm: document.getElementById("bgm"),
+    
 
     init() {
         this.bgm.loop = true;
