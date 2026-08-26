@@ -734,6 +734,418 @@ window.addEventListener("DOMContentLoaded", () => {
 
     }
 
+
+    /*
+   =========================================
+   WII NEWS
+   =========================================
+   */
+
+    const wiiNews =
+        document.getElementById("wii-news");
+
+    const newsContent =
+        document.getElementById("news-content");
+
+
+    /*
+    =========================================
+    NOTÍCIAS NORMAIS
+    =========================================
+    */
+
+    const noticiasNormais = [
+
+        "🐱 GATO DOMÉSTICO CONFIRMA QUE NÃO TEM IDEIA DO QUE ESTÁ FAZENDO.",
+
+        "🥤 PESQUISA REVELA: ÁGUA FICA MAIS GOSTOSA QUANDO BEBIDA EM GARRAFA DOS OUTROS.",
+
+        "🐟 PEIXE É VISTO NADANDO E NÃO COMENTA NADA.",
+
+        "🧦 CIENTISTAS CONFIRMAM: SEGUNDA-FEIRA EXISTE.",
+
+        "🎮 WII PORTFOLIO SEGUE FUNCIONANDO NORMALMENTE, SEGUNDO FONTES NÃO OFICIAIS.",
+
+        "🥔 CURIOSIDADE: BATATAS NÃO POSSUEM CONHECIMENTO SOBRE PROGRAMAÇÃO.",
+
+        "🐧 ESTUDO REVELA QUE PINGUINS CONTINUAM SEM DEMONSTRAR INTERESSE EM JAVASCRIPT.",
+
+        "🐈 GATOS CONSEGUEM IGNORAR VOCÊ MESMO QUANDO VOCÊ CHAMA PELO NOME.",
+
+        "🥄 URGENTE: COLHER CONTINUA SENDO UMA COLHER.",
+
+        "🪑 PESQUISA REVELA: CADEIRAS PERMANECEM IMÓVEIS POR LONGOS PERÍODOS.",
+
+        "🦆 PATOS SEGUEM ANDANDO DE MANEIRA SUSPEITAMENTE ENGRAÇADA.",
+
+        "🌎 A TERRA CONTINUA GIRANDO SEM PEDIR AUTORIZAÇÃO.",
+
+        "💻 DESLIGAR E LIGAR NOVAMENTE CONTINUA SENDO UMA ESTRATÉGIA VÁLIDA.",
+
+        "🧠 USUÁRIO ABRE UMA ABA E ESQUECE IMEDIATAMENTE POR QUE ABRIU.",
+
+        "📱 CELULAR PERMANECE COM 3% DE BATERIA POR APROXIMADAMENTE 47 MINUTOS QUANDO NECESSÁRIO.",
+
+        "🍞 INVESTIGAÇÃO CONCLUÍDA: PÃO CONTINUA SENDO PÃO.",
+
+        "🐌 CARACOL NÃO DEMONSTROU INTERESSE EM COMPETIR.",
+
+        "☕ CAFÉ CONTINUA DESAPARECENDO MISTERIOSAMENTE DURANTE O EXPEDIENTE.",
+
+        "🎨 DESIGNER ALTERA UMA COISA NO SITE E ACABA ALTERANDO OUTRAS CINCO.",
+
+        "💾 ARQUIVO FOI SALVO COM SUCESSO. USUÁRIO NÃO LEMBRA ONDE.",
+
+        "🔌 COMPUTADOR FOI DESLIGADO E LIGADO NOVAMENTE. PROBLEMA CONSIDERADO RESOLVIDO.",
+
+        "⌨️ TECLA CTRL FOI PRESSIONADA JUNTO COM UMA TECLA ALEATÓRIA. NINGUÉM SABE O RESULTADO.",
+
+        "🌙 USUÁRIO AFIRMA QUE VAI DORMIR CEDO. FONTES NÃO CONFIRMAM.",
+
+        "🎧 FONE DE OUVIDO CONTINUA EMBARAÇANDO SOZINHO MESMO QUANDO GUARDADO CORRETAMENTE.",
+
+        "💡 IDEIA SURGE ÀS 3 DA MANHÃ. DESENVOLVEDOR DECIDE IMPLEMENTÁ-LA.",
+
+        "📂 NOVA PASTA 'FINAL_FINAL_AGORA_VAI' É CRIADA.",
+
+        "🐾 DESENVOLVEDOR AFIRMA: 'AGORA FUNCIONA'. SISTEMA PERMANECE EM SILÊNCIO.",
+
+        "💻 MAIS UMA ANIMAÇÃO FOI ADICIONADA AO PORTFÓLIO. NINGUÉM SABE POR QUÊ."
+
+    ];
+
+
+    /*
+    =========================================
+    NOTÍCIAS DO PATAGATO
+    =========================================
+    */
+
+    const noticiasPatagato = [
+
+        "⚠️ COMPORTAMENTO INCOMUM DETECTADO NO WII LOGO.",
+
+        "⚠️ ATENÇÃO: O WII LOGO FOI CLICADO NOVAMENTE.",
+
+        "🚨 PLANTÃO Wii News • GATO NÃO AUTORIZADO DETECTADO NO SISTEMA.",
+
+        "🚨 FALHA CRÍTICA • PATAGATO EMERGÊNCIA.",
+
+        "🐾 PATAGATO FOI VISTO DENTRO DO SISTEMA.",
+
+        "⚠️ SISTEMA INSTÁVEL • NÃO DESLIGUE O CONSOLE.",
+
+        "🐱 GATO EM OPERAÇÃO • PROCEDIMENTOS NORMAIS SUSPENSOS.",
+
+        "💥 IMPACTO DETECTADO • RESPONSÁVEL: PATAGATO.",
+
+        "🚨 TODAS AS UNIDADES DEVEM IGNORAR O GATO.",
+
+        "🐾 SITUAÇÃO SOB CONTROLE • GATO DISCORDA."
+
+    ];
+
+    /*
+    =========================================
+    FUNÇÃO — NOTÍCIA ALEATÓRIA
+    =========================================
+    */
+
+    function escolherNoticia(lista) {
+
+        return lista[
+            Math.floor(
+                Math.random() * lista.length
+            )
+        ];
+
+    }
+
+
+    /*
+    =========================================
+    FUNÇÃO — MOSTRAR NOTÍCIA
+    =========================================
+    */
+
+    function mostrarNoticia(
+        texto,
+        tipo = "normal"
+    ) {
+
+        if (!newsContent || !wiiNews) {
+            return;
+        }
+
+
+        /*
+        -----------------------------------------
+        REINICIA ANIMAÇÃO
+        -----------------------------------------
+        */
+
+        newsContent.style.animation = "none";
+
+        void newsContent.offsetWidth;
+
+
+        /*
+        -----------------------------------------
+        ALTERA TEXTO
+        -----------------------------------------
+        */
+
+        newsContent.textContent = texto;
+
+
+        /*
+        -----------------------------------------
+        LIMPA ESTADOS
+        -----------------------------------------
+        */
+
+        wiiNews.classList.remove(
+            "alert",
+            "patagato"
+        );
+
+
+        /*
+        -----------------------------------------
+        ALERTA
+        -----------------------------------------
+        */
+
+        if (tipo === "alert") {
+
+            wiiNews.classList.add(
+                "alert"
+            );
+
+        }
+
+
+        /*
+        -----------------------------------------
+        PATAGATO
+        -----------------------------------------
+        */
+
+        if (tipo === "patagato") {
+
+            wiiNews.classList.add(
+                "patagato"
+            );
+
+        }
+
+
+        /*
+        -----------------------------------------
+        INICIA ANIMAÇÃO
+        -----------------------------------------
+        */
+
+        newsContent.style.animation =
+            "newsScroll 15s linear infinite";
+
+    }
+
+
+    /*
+    =========================================
+    ESTADO DO WII NEWS
+    =========================================
+    */
+
+    let newsInterval = null;
+
+    let patagatoNewsInterval = null;
+
+
+    /*
+    =========================================
+    PARA TODAS AS NOTÍCIAS
+    =========================================
+    */
+
+    function pararTodasNoticias() {
+
+        if (newsInterval !== null) {
+
+            clearInterval(newsInterval);
+
+            newsInterval = null;
+
+        }
+
+
+        if (patagatoNewsInterval !== null) {
+
+            clearInterval(
+                patagatoNewsInterval
+            );
+
+            patagatoNewsInterval = null;
+
+        }
+
+    }
+
+
+    /*
+    =========================================
+    NOTÍCIAS NORMAIS
+    =========================================
+    */
+
+    function iniciarNoticiasNormais() {
+
+        /*
+        -----------------------------------------
+        PARA QUALQUER MODO ANTERIOR
+        -----------------------------------------
+        */
+
+        pararTodasNoticias();
+
+
+        /*
+        -----------------------------------------
+        MOSTRA PRIMEIRA NOTÍCIA
+        -----------------------------------------
+        */
+
+        mostrarNoticia(
+            escolherNoticia(
+                noticiasNormais
+            )
+        );
+
+
+        /*
+        -----------------------------------------
+        INICIA CICLO NORMAL
+        -----------------------------------------
+        */
+
+        newsInterval = setInterval(() => {
+
+            mostrarNoticia(
+                escolherNoticia(
+                    noticiasNormais
+                )
+            );
+
+        }, 15000);
+
+    }
+
+
+    /*
+    =========================================
+    NOTÍCIAS DO PATAGATO
+    =========================================
+    */
+
+    function iniciarNoticiasPatagato() {
+
+        /*
+        -----------------------------------------
+        PARA TUDO ANTES
+        -----------------------------------------
+        */
+
+        pararTodasNoticias();
+
+
+        /*
+        -----------------------------------------
+        PRIMEIRA NOTÍCIA
+        -----------------------------------------
+        */
+
+        mostrarNoticia(
+            escolherNoticia(
+                noticiasPatagato
+            ),
+            "patagato"
+        );
+
+
+        /*
+        -----------------------------------------
+        CICLO DO PATAGATO
+        -----------------------------------------
+        */
+
+        patagatoNewsInterval = setInterval(() => {
+
+            mostrarNoticia(
+                escolherNoticia(
+                    noticiasPatagato
+                ),
+                "patagato"
+            );
+
+        }, 6000);
+
+    }
+
+
+    /*
+    =========================================
+    NOTÍCIA ÚNICA — SISTEMA RESTAURADO
+    =========================================
+    */
+
+    function mostrarSistemaRestaurado() {
+
+        /*
+        -----------------------------------------
+        PARA ABSOLUTAMENTE TODOS OS CICLOS
+        -----------------------------------------
+        */
+
+        pararTodasNoticias();
+
+
+        /*
+        -----------------------------------------
+        MOSTRA UMA ÚNICA VEZ
+        -----------------------------------------
+        */
+
+        mostrarNoticia(
+            "✅ SISTEMA RESTAURADO • OPERAÇÕES NORMAIS RETOMADAS.",
+            "normal"
+        );
+
+
+        /*
+        -----------------------------------------
+        APÓS 15 SEGUNDOS
+        VOLTA AO NORMAL
+        -----------------------------------------
+        */
+
+        setTimeout(() => {
+
+            iniciarNoticiasNormais();
+
+        }, 15000);
+
+    }
+
+
+    /*
+    =========================================
+    COMEÇA NORMALMENTE
+    =========================================
+    */
+
+    iniciarNoticiasNormais();
+
     /*
 /*
 =========================================
@@ -843,6 +1255,22 @@ EASTER EGG — PATAGATO SYSTEM ERROR
             easterEggRunning = true;
 
 
+            /*
+/*
+-----------------------------------------
+PARA TODAS AS NOTÍCIAS
+-----------------------------------------
+*/
+
+            pararTodasNoticias();
+
+
+            /*
+            -----------------------------------------
+            WII NEWS — PATAGATO
+            -----------------------------------------
+            */
+
             console.log(
                 "🐾 PATAGATO SYSTEM ERROR"
             );
@@ -881,6 +1309,17 @@ EASTER EGG — PATAGATO SYSTEM ERROR
             */
 
             setTimeout(() => {
+
+                /*
+            -----------------------------------------
+            WII NEWS ENTRA EM MODO EMERGÊNCIA
+            -----------------------------------------
+                */
+
+                iniciarNoticiasPatagato();
+
+                /*
+
 
                 /*
                 -----------------------------------------
@@ -1131,10 +1570,10 @@ EASTER EGG — PATAGATO SYSTEM ERROR
             }, 950);
 
             /*
-            =========================================
-            FASE 4 — SISTEMA SE RECUPERA
-            =========================================
-            */
+ =========================================
+ FASE 4 — SISTEMA SE RECUPERA
+ =========================================
+ */
 
             setTimeout(() => {
 
@@ -1150,9 +1589,9 @@ EASTER EGG — PATAGATO SYSTEM ERROR
 
 
                 /*
-                =========================================
+                -----------------------------------------
                 REMOVE PATAGATO
-                =========================================
+                -----------------------------------------
                 */
 
                 if (pawHit) {
@@ -1165,9 +1604,9 @@ EASTER EGG — PATAGATO SYSTEM ERROR
 
 
                 /*
-                =========================================
+                -----------------------------------------
                 REMOVE EFEITO DO LOGO
-                =========================================
+                -----------------------------------------
                 */
 
                 wiiLogo.classList.remove(
@@ -1176,9 +1615,9 @@ EASTER EGG — PATAGATO SYSTEM ERROR
 
 
                 /*
-                =========================================
+                -----------------------------------------
                 RESTAURA O CANAL
-                =========================================
+                -----------------------------------------
                 */
 
                 if (canalCaido) {
@@ -1222,15 +1661,11 @@ EASTER EGG — PATAGATO SYSTEM ERROR
 
                 /*
                 =========================================
-                FINALIZA EASTER EGG
+                WII NEWS — SISTEMA RESTAURADO
                 =========================================
                 */
 
-                setTimeout(() => {
-
-                    easterEggRunning = false;
-
-                }, 1300);
+                mostrarSistemaRestaurado();
 
 
             }, 4300);
