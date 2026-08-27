@@ -84,6 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
         paw.classList.remove("active");
         void paw.offsetWidth;
         paw.classList.add("active");
+        desbloquearConquista("night");
     });
 
     // START SCREEN

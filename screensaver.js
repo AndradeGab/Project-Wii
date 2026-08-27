@@ -55,7 +55,7 @@ function resetIdleTimer() {
     clearTimeout(idleTimer);
 
     if (screensaverAtivo) pararScreensaver();
-    // 60 segundos
+    // 40 segundos
     idleTimer = setTimeout(iniciarScreensaver, 40000);
 
     

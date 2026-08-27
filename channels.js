@@ -1799,6 +1799,12 @@ const conquistas = {
         nome: "Tenha paciência Daniel-San.",
         descricao: "Você descobriu que o Wii tem segredos que só aparecem com paciência.",
         popup: "⏰ LOADING DESCOBERTO"
+    },
+
+    blackout: {
+        nome: "Tá achando que eu sou sócia da companhia elétrica?!",
+        descricao: "Você apagou e ligou a luz várias vezes e irritou o sistema.",
+        popup: "💡 BLACKOUT DESCOBERTO"
     }
 
 
