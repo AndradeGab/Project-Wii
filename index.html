@@ -35,6 +35,9 @@
         <source src="audio/logo-spin.mp3" type="audio/mpeg">
     </audio>
 
+    <audio id="achievement-sound" src="audio/achievement.mp3" preload="auto">
+    </audio>
+
     <div id="start-screen">
 
         <h1>Wii Portfolio</h1>
@@ -46,6 +49,12 @@
     </div>
 
     <div id="top-controls">
+
+        <button class="control-btn achievement-btn" id="achievement-button" aria-label="Conquistas">
+
+            🏆
+
+        </button>
         <div class="control-btn theme" id="theme-toggle">
             <span class="icon light">💡</span>
             <span class="icon dark">⏻</span>
@@ -53,7 +62,7 @@
 
         <div class="volume-control">
             🔊
-            <input type="range" id="volume-slider" min="0" max="1" step="0.01">
+            <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.4">
         </div>
     </div>
     <div class="console">
@@ -393,6 +402,211 @@
 
         <div class="news-ticker">
             <div id="news-content"></div>
+        </div>
+
+    </div>
+
+    <div id="achievements-panel">
+
+        <div class="achievements-header">
+
+            <div>
+                <h2>🏆 Conquistas</h2>
+                <p>Segredos encontrados durante sua jornada pelo sistema.</p>
+            </div>
+
+            <button id="close-achievements">
+                ✕
+            </button>
+
+        </div>
+
+
+        <div class="achievements-list">
+
+            <!-- CONQUISTA 1 -->
+            <div class="achievement-card" data-achievement="patagato">
+
+                <div class="achievement-icon">
+                    🏆
+                </div>
+
+                <div class="achievement-info">
+
+                    <h3 class="achievement-name">
+                        ???
+                    </h3>
+
+                    <p class="achievement-description">
+                        Você ainda não desbloqueou essa conquista.
+                    </p>
+
+                    <button class="hint-button">
+                        💡 Ver dica
+                    </button>
+
+                    <p class="achievement-hint">
+                        Talvez o Wii não goste de receber atenção demais...
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+
+            <!-- CONQUISTA 2 -->
+            <div class="achievement-card" data-achievement="night">
+
+                <div class="achievement-icon">
+                    🏆
+                </div>
+
+                <div class="achievement-info">
+
+                    <h3 class="achievement-name">
+                        ???
+                    </h3>
+
+                    <p class="achievement-description">
+                        Você ainda não desbloqueou essa conquista.
+                    </p>
+
+                    <button class="hint-button">
+                        💡 Ver dica
+                    </button>
+
+                    <p class="achievement-hint">
+                        Nem tudo precisa ser visto durante o dia...
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- CONQUISTA 3 -->
+            <div class="achievement-card" data-achievement="explorer">
+
+                <div class="achievement-icon">
+                    🏆
+                </div>
+
+                <div class="achievement-info">
+
+                    <h3 class="achievement-name">
+                        ???
+                    </h3>
+
+                    <p class="achievement-description">
+                        Você ainda não desbloqueou essa conquista.
+                    </p>
+
+                    <button class="hint-button">
+                        💡 Ver dica
+                    </button>
+
+                    <p class="achievement-hint">
+                        Talvez seja uma boa ideia visitar todos os canais...
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- CONQUISTA 4 -->
+            <div class="achievement-card" data-achievement="dev">
+
+                <div class="achievement-icon">
+                    🏆
+                </div>
+
+                <div class="achievement-info">
+
+                    <h3 class="achievement-name">
+                        ???
+                    </h3>
+
+                    <p class="achievement-description">
+                        Você ainda não desbloqueou essa conquista.
+                    </p>
+
+                    <button class="hint-button">
+                        💡 Ver dica
+                    </button>
+
+                    <p class="achievement-hint">
+                        Acredito que seria bom tentar conhecer o Dev melhor...
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="achievements-footer">
+
+            <button id="reset-achievements">
+                ↻ Resetar conquistas
+            </button>
+
+        </div>
+
+        <!-- MODAL DE CONFIRMAÇÃO -->
+
+        <div id="reset-achievements-modal">
+
+            <div class="reset-modal-box">
+
+                <div class="reset-modal-icon">
+                    ⚠
+                </div>
+
+                <h3>RESETAR CONQUISTAS?</h3>
+
+                <p>
+                    Todas as conquistas desbloqueadas<br>
+                    serão apagadas.
+                </p>
+
+                <div class="reset-modal-buttons">
+
+                    <button id="cancel-reset">
+                        Cancelar
+                    </button>
+
+                    <button id="confirm-reset">
+                        Resetar
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div id="achievement-popup">
+
+        <div class="achievement-popup-icon">
+            🏆
+        </div>
+
+        <div class="achievement-popup-text">
+
+            <span>
+                CONQUISTA DESBLOQUEADA
+            </span>
+
+            <strong id="achievement-popup-name">
+                Nova conquista
+            </strong>
+
         </div>
 
     </div>

@@ -10,8 +10,21 @@ window.addEventListener("DOMContentLoaded", () => {
     const miiBgm = document.getElementById("mii-bgm");
     const volumeSlider = document.getElementById("volume-slider");
     const clockSound = document.getElementById("clock-sound");
-    const glassSound =
-        document.getElementById("glass-sound");
+    const glassSound = document.getElementById("glass-sound");
+    const achievementButton =
+        document.getElementById("achievement-button");
+
+    const achievementsPanel =
+        document.getElementById("achievements-panel");
+
+    const closeAchievements =
+        document.getElementById("close-achievements");
+
+    const achievementPopup =
+        document.getElementById("achievement-popup");
+
+    const achievementSound =
+        document.getElementById("achievement-sound");
 
 
     /*
@@ -95,6 +108,8 @@ window.addEventListener("DOMContentLoaded", () => {
         card.addEventListener("click", () => {
 
             AudioManager.playClick();
+
+            desbloquearConquista("explorer");
 
 
             /*
@@ -228,6 +243,8 @@ window.addEventListener("DOMContentLoaded", () => {
                     }
 
                     gChannel.classList.add("active");
+
+
 
 
                     /*
@@ -515,6 +532,19 @@ window.addEventListener("DOMContentLoaded", () => {
             const pageName =
                 option.dataset.page;
 
+            /*
+   =========================================
+   CONQUISTA — SOBRE MIM
+   =========================================
+   */
+
+            if (pageName === "about") {
+
+                desbloquearConquista("dev");
+
+            }
+
+
 
             gPages.forEach(page => {
 
@@ -708,6 +738,9 @@ window.addEventListener("DOMContentLoaded", () => {
 
     if (volumeSlider) {
 
+        // Volume inicial do Wii: 40%
+        volumeSlider.value = "0.4";
+
         const atualizarVolume = () => {
 
             const volume =
@@ -723,12 +756,10 @@ window.addEventListener("DOMContentLoaded", () => {
 
         };
 
-
         volumeSlider.addEventListener(
             "input",
             atualizarVolume
         );
-
 
         atualizarVolume();
 
@@ -810,7 +841,9 @@ window.addEventListener("DOMContentLoaded", () => {
 
         "🐾 DESENVOLVEDOR AFIRMA: 'AGORA FUNCIONA'. SISTEMA PERMANECE EM SILÊNCIO.",
 
-        "💻 MAIS UMA ANIMAÇÃO FOI ADICIONADA AO PORTFÓLIO. NINGUÉM SABE POR QUÊ."
+        "💻 MAIS UMA ANIMAÇÃO FOI ADICIONADA AO PORTFÓLIO. NINGUÉM SABE POR QUÊ.",
+
+        "🐋 URGENTE! BALEIA BALEIA BALEIA"
 
     ];
 
@@ -1253,6 +1286,8 @@ EASTER EGG — PATAGATO SYSTEM ERROR
             clearTimeout(wiiClickTimer);
 
             easterEggRunning = true;
+
+            desbloquearConquista("patagato");
 
 
             /*
@@ -1718,6 +1753,725 @@ PARA TODAS AS NOTÍCIAS
 
         });
 
+
+    }
+
+
+
+});
+
+/* =========================================
+   SISTEMA DE CONQUISTAS
+========================================= */
+
+const achievementButton = document.getElementById("achievement-button");
+const achievementsPanel = document.getElementById("achievements-panel");
+const closeAchievements = document.getElementById("close-achievements");
+const achievementSound = document.getElementById("achievement-sound");
+
+const conquistas = {
+
+    patagato: {
+        nome: "PATAGATO SYSTEM ERROR",
+        descricao: "Você irritou o sistema o suficiente para invocar um gato.",
+        popup: "🐾 PATAGATO SYSTEM ERROR"
+    },
+
+    night: {
+        nome: "Boa Noite, Wii",
+        descricao: "Você descobriu que o Wii também funciona depois que escurece.",
+        popup: "🌙 MODO NOTURNO DESCOBERTO"
+    },
+
+    explorer: {
+        nome: "Explorador de Canais",
+        descricao: "Você começou a investigar o que existe dentro desse Wii.",
+        popup: "🔎 EXPLORADOR DESBLOQUEADO"
+    },
+
+    dev: {
+        nome: "Oi, tudo bem?",
+        descricao: "Agora você conhece o desenvolvedor do Wii Portfolio.",
+        popup: "👀 SOBRE MIM ACESSADO"
+    }
+
+};
+
+
+/* =========================================
+   CARREGAR
+========================================= */
+
+let conquistasDesbloqueadas = [];
+
+try {
+
+    conquistasDesbloqueadas =
+        JSON.parse(
+            localStorage.getItem("wiiAchievements")
+        ) || [];
+
+} catch (erro) {
+
+    console.warn(
+        "Erro ao carregar conquistas:",
+        erro
+    );
+
+    conquistasDesbloqueadas = [];
+
+}
+
+
+/* =========================================
+   SALVAR
+========================================= */
+
+function salvarConquistas() {
+
+    localStorage.setItem(
+        "wiiAchievements",
+        JSON.stringify(conquistasDesbloqueadas)
+    );
+
+}
+
+
+/* =========================================
+   ATUALIZAR PAINEL
+========================================= */
+
+function atualizarConquistas() {
+
+    document
+        .querySelectorAll(".achievement-card")
+        .forEach(card => {
+
+            const id = card.dataset.achievement;
+            const conquista = conquistas[id];
+
+            if (!conquista) return;
+
+            const desbloqueada =
+                conquistasDesbloqueadas.includes(id);
+
+            const nome =
+                card.querySelector(".achievement-name");
+
+            const descricao =
+                card.querySelector(".achievement-description");
+
+            const icone =
+                card.querySelector(".achievement-icon");
+
+
+            if (!nome || !descricao || !icone) return;
+
+
+            if (desbloqueada) {
+
+                card.classList.add("unlocked");
+
+                nome.textContent =
+                    conquista.nome;
+
+                descricao.textContent =
+                    conquista.descricao;
+
+                icone.textContent = "🏆";
+
+            } else {
+
+                card.classList.remove("unlocked");
+
+                nome.textContent = "???";
+
+                descricao.textContent =
+                    "Você ainda não desbloqueou essa conquista.";
+
+                icone.textContent = "🔒";
+
+            }
+
+        });
+
+}
+
+
+/* =========================================
+   POPUP
+========================================= */
+
+let popupTimeout = null;
+
+function mostrarPopupConquista(id) {
+
+    const conquista = conquistas[id];
+
+    if (!conquista) return;
+
+
+    const popup =
+        document.getElementById("achievement-popup");
+
+    const popupName =
+        document.getElementById("achievement-popup-name");
+
+    if (!popup || !popupName) return;
+
+
+    popupName.textContent =
+        conquista.popup;
+
+
+    /* Cancela animação anterior */
+
+    clearTimeout(popupTimeout);
+
+
+    popup.classList.remove(
+        "active",
+        "closing"
+    );
+
+
+    /* Reinicia animação */
+
+    void popup.offsetWidth;
+
+
+    /* Entrada */
+
+    popup.classList.add("active");
+
+
+    /* Som */
+
+    if (achievementSound) {
+
+        achievementSound.currentTime = 0;
+
+        if (
+            typeof volumeSlider !== "undefined" &&
+            volumeSlider
+        ) {
+
+            achievementSound.volume =
+                parseFloat(volumeSlider.value) * 0.35;
+
+        } else {
+
+            achievementSound.volume = 0.35;
+
+        }
+
+        achievementSound
+            .play()
+            .catch(() => { });
+
+    }
+
+
+    /* Saída */
+
+    popupTimeout = setTimeout(() => {
+
+        popup.classList.remove("active");
+
+        popup.classList.add("closing");
+
+
+        popupTimeout = setTimeout(() => {
+
+            popup.classList.remove("closing");
+
+        }, 600);
+
+    }, 3500);
+
+}
+
+
+/* =========================================
+   DESBLOQUEAR
+========================================= */
+
+function desbloquearConquista(id) {
+
+    if (!conquistas[id]) {
+
+        console.warn(
+            "Conquista inexistente:",
+            id
+        );
+
+        return;
+
+    }
+
+
+    /* Já desbloqueada */
+
+    if (
+        conquistasDesbloqueadas.includes(id)
+    ) {
+
+        return;
+
+    }
+
+
+    conquistasDesbloqueadas.push(id);
+
+    salvarConquistas();
+
+    atualizarConquistas();
+
+    mostrarPopupConquista(id);
+
+
+    console.log(
+        "🏆 Conquista desbloqueada:",
+        conquistas[id].nome
+    );
+
+}
+
+
+/* =========================================
+   ABRIR / FECHAR PAINEL
+========================================= */
+
+function alternarConquistas() {
+
+    if (!achievementsPanel) return;
+
+
+    const aberto =
+        achievementsPanel.classList.contains("active");
+
+
+    if (aberto) {
+
+        achievementsPanel.classList.remove("active");
+
+    } else {
+
+        atualizarConquistas();
+
+        achievementsPanel.classList.add("active");
+
+    }
+
+}
+
+
+/* =========================================
+   BOTÃO DE CONQUISTAS
+========================================= */
+
+if (achievementButton) {
+
+    achievementButton.addEventListener(
+        "click",
+        () => {
+
+            if (
+                typeof AudioManager !== "undefined" &&
+                AudioManager.playClick
+            ) {
+
+                AudioManager.playClick();
+
+            }
+
+            alternarConquistas();
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   BOTÃO X
+========================================= */
+
+if (closeAchievements) {
+
+    closeAchievements.addEventListener(
+        "click",
+        () => {
+
+            if (
+                typeof AudioManager !== "undefined" &&
+                AudioManager.playClick
+            ) {
+
+                AudioManager.playClick();
+
+            }
+
+            achievementsPanel.classList.remove("active");
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   CLICAR FORA DAS CONQUISTAS
+========================================= */
+
+document.addEventListener("click", (event) => {
+
+    if (!achievementsPanel) {
+        return;
+    }
+
+
+    /* Se o painel não estiver aberto, ignora */
+
+    if (
+        !achievementsPanel.classList.contains("active")
+    ) {
+        return;
+    }
+
+
+    /* Botão que abre/fecha */
+
+    if (
+        achievementButton &&
+        achievementButton.contains(event.target)
+    ) {
+        return;
+    }
+
+
+    /* Clique dentro do painel */
+
+    if (
+        achievementsPanel.contains(event.target)
+    ) {
+        return;
+    }
+
+
+    /* =========================================
+       CLIQUE FORA
+    ========================================= */
+
+    AudioManager.playClick();
+
+    achievementsPanel.classList.remove(
+        "active"
+    );
+
+});
+
+
+/* =========================================
+   TECLA ESC
+   Fecha Conquistas ou G-Channel
+========================================= */
+
+document.addEventListener("keydown", (event) => {
+
+    if (event.key !== "Escape") {
+        return;
+    }
+
+
+    /* MODAL DE RESET */
+
+    if (
+        resetAchievementsModal &&
+        resetAchievementsModal.classList.contains("active")
+    ) {
+
+        AudioManager.playClick();
+
+        resetAchievementsModal.classList.remove(
+            "active"
+        );
+
+        return;
+
+    }
+
+
+    /* PAINEL DE CONQUISTAS */
+
+    if (
+        achievementsPanel &&
+        achievementsPanel.classList.contains("active")
+    ) {
+
+        AudioManager.playClick();
+
+        achievementsPanel.classList.remove(
+            "active"
+        );
+
+        return;
+
+    }
+
+
+    /* G-CHANNEL */
+
+    const gChannel =
+        document.getElementById("g-channel");
+
+
+    if (
+        gChannel &&
+        gChannel.classList.contains("active")
+    ) {
+
+        const gChannelBack =
+            document.getElementById("g-channel-back");
+
+
+        if (gChannelBack) {
+
+            gChannelBack.click();
+
+        }
+
     }
 
 });
+
+/* =========================================
+   CLICAR FORA DO G-CHANNEL
+========================================= */
+
+document.addEventListener("click", (event) => {
+
+    const gChannel =
+        document.getElementById("g-channel");
+
+
+    if (
+        !gChannel ||
+        !gChannel.classList.contains("active")
+    ) {
+        return;
+    }
+
+
+    const clicouDentro =
+        gChannel.contains(event.target);
+
+
+    if (!clicouDentro) {
+
+        AudioManager.playClick();
+
+        const gChannelBack =
+            document.getElementById("g-channel-back");
+
+
+        if (gChannelBack) {
+
+            gChannelBack.click();
+
+        }
+
+    }
+
+});
+
+
+
+
+/* =========================================
+   DICAS
+========================================= */
+
+document
+    .querySelectorAll(".hint-button")
+    .forEach(button => {
+
+        button.addEventListener(
+            "click",
+            event => {
+
+                event.stopPropagation();
+
+
+                if (
+                    typeof AudioManager !== "undefined" &&
+                    AudioManager.playClick
+                ) {
+
+                    AudioManager.playClick();
+
+                }
+
+
+                const card =
+                    button.closest(
+                        ".achievement-card"
+                    );
+
+                if (!card) return;
+
+
+                card.classList.toggle(
+                    "show-hint"
+                );
+
+            }
+        );
+
+    });
+
+/* =========================================
+   RESETAR CONQUISTAS
+========================================= */
+
+const resetAchievements =
+    document.getElementById("reset-achievements");
+
+const resetAchievementsModal =
+    document.getElementById(
+        "reset-achievements-modal"
+    );
+
+const cancelReset =
+    document.getElementById("cancel-reset");
+
+const confirmReset =
+    document.getElementById("confirm-reset");
+
+
+/* =========================================
+   ABRIR CONFIRMAÇÃO
+========================================= */
+
+if (
+    resetAchievements &&
+    resetAchievementsModal
+) {
+
+    resetAchievements.addEventListener(
+        "click",
+        () => {
+
+            AudioManager.playClick();
+
+            resetAchievementsModal.classList.add(
+                "active"
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   CANCELAR
+========================================= */
+
+if (
+    cancelReset &&
+    resetAchievementsModal
+) {
+
+    cancelReset.addEventListener(
+        "click",
+        () => {
+
+            AudioManager.playClick();
+
+            resetAchievementsModal.classList.remove(
+                "active"
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   CONFIRMAR RESET
+========================================= */
+
+if (
+    confirmReset &&
+    resetAchievementsModal
+) {
+
+    confirmReset.addEventListener("click", () => {
+
+        AudioManager.playClick();
+
+        /* LIMPA O ARRAY */
+
+        conquistasDesbloqueadas = [];
+
+
+        /* SALVA O ESTADO VAZIO */
+
+        salvarConquistas();
+
+
+        /* ATUALIZA OS CARDS */
+
+        atualizarConquistas();
+
+
+        /* FECHA MODAL */
+
+        resetAchievementsModal.classList.remove(
+            "active"
+        );
+
+
+        console.log("🔄 Conquistas resetadas.");
+
+    });
+
+}
+
+
+/* =========================================
+   CLICAR FORA
+========================================= */
+
+if (resetAchievementsModal) {
+
+    resetAchievementsModal.addEventListener(
+        "click",
+        (event) => {
+
+            if (
+                event.target ===
+                resetAchievementsModal
+            ) {
+
+                AudioManager.playClick();
+
+                resetAchievementsModal.classList.remove(
+                    "active"
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   INICIALIZA
+========================================= */
+
+atualizarConquistas();
