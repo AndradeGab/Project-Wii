@@ -1793,7 +1793,14 @@ const conquistas = {
         nome: "Oi, tudo bem?",
         descricao: "Agora você conhece o desenvolvedor do Wii Portfolio.",
         popup: "👀 SOBRE MIM ACESSADO"
+    },
+
+    espera: {
+        nome: "Tenha paciência Daniel-San.",
+        descricao: "Você descobriu que o Wii tem segredos que só aparecem com paciência.",
+        popup: "⏰ LOADING DESCOBERTO"
     }
+
 
 };
 

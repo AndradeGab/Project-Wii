@@ -55,8 +55,10 @@ function resetIdleTimer() {
     clearTimeout(idleTimer);
 
     if (screensaverAtivo) pararScreensaver();
-    // 30 segundos
-    idleTimer = setTimeout(iniciarScreensaver, 30000);
+    // 60 segundos
+    idleTimer = setTimeout(iniciarScreensaver, 40000);
+
+    
 }
 
 document.addEventListener("mousemove", resetIdleTimer);
@@ -79,6 +81,7 @@ function iniciarScreensaver() {
     dvdLogo.style.top = y + "px";
 
     moverLogo();
+    desbloquearConquista("espera");
 }
 
 function pararScreensaver() {
