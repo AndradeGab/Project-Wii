@@ -1748,6 +1748,8 @@ PARA TODAS AS NOTÍCIAS
                 }
 
                 clockSound.play().catch(() => { });
+                desbloquearConquista("horaCerta");
+
 
             }
 
@@ -1799,6 +1801,12 @@ const conquistas = {
         nome: "Tenha paciência Daniel-San.",
         descricao: "Você descobriu que o Wii tem segredos que só aparecem com paciência.",
         popup: "⏰ LOADING DESCOBERTO"
+    },
+
+    horaCerta: {
+        nome: "Hora Certa!",
+        descricao: "Falta bem pouquinho pa daqui a pouco...",
+        popup: "🕰️ ÁUDIO DO RELÓGIO DESCOBERTO"
     },
 
     blackout: {
@@ -2479,6 +2487,500 @@ if (resetAchievementsModal) {
 
         }
     );
+
+    function ativarThemeFlood() {
+
+    if (themeFloodRunning) return;
+
+
+    themeFloodRunning = true;
+
+
+    console.log(
+        "💡 FALHA CRÍTICA NA ILUMINAÇÃO"
+    );
+
+
+    /*
+       DESBLOQUEIA CONQUISTA
+    */
+
+    desbloquearConquista(
+        "crise-temporal"
+    );
+
+
+    /*
+       BLOQUEIA BOTÃO
+    */
+
+    themeToggle.style.pointerEvents = "none";
+
+
+    /*
+       PARA A MÚSICA
+    */
+
+    bgm.pause();
+
+    bgm.currentTime = 0;
+
+
+    /*
+       PEQUENO ATRASO
+       ANTES DO BLACKOUT
+    */
+
+    setTimeout(() => {
+
+        iniciarBlackoutTema();
+
+    }, 400);
+
+}
+
+function iniciarBlackoutTema() {
+
+    const blackout =
+        document.getElementById(
+            "theme-blackout"
+        );
+
+    const spotlight =
+        document.getElementById(
+            "spotlight"
+        );
+
+
+    if (!blackout || !spotlight) return;
+
+
+    /*
+       TELA APAGA
+    */
+
+    blackout.classList.add(
+        "active"
+    );
+
+
+    /*
+       GARANTE QUE O
+       HOLOFOTE COMECE APAGADO
+    */
+
+    spotlight.classList.remove(
+        "on"
+    );
+
+
+    /*
+       3 PISCADAS
+    */
+
+    let piscadas = 0;
+
+
+    const intervalo = setInterval(() => {
+
+        spotlight.classList.remove(
+            "on"
+        );
+
+
+        void spotlight.offsetWidth;
+
+
+        spotlight.classList.add(
+            "on"
+        );
+
+
+        piscadas++;
+
+
+        /*
+           DEPOIS DA TERCEIRA
+           PISCADA...
+        */
+
+        if (piscadas >= 3) {
+
+            clearInterval(
+                intervalo
+            );
+
+
+            /*
+               QUARTA LUZ =
+               SISTEMA VOLTA
+            */
+
+            setTimeout(() => {
+
+                restaurarSistemaTema();
+
+            }, 700);
+
+        }
+
+    }, 900);
+
+}
+
+function restaurarSistemaTema() {
+
+    const blackout =
+        document.getElementById(
+            "theme-blackout"
+        );
+
+    const spotlight =
+        document.getElementById(
+            "spotlight"
+        );
+
+
+    /*
+       QUARTA LUZ
+    */
+
+    spotlight.classList.remove(
+        "on"
+    );
+
+
+    void spotlight.offsetWidth;
+
+
+    spotlight.classList.add(
+        "on"
+    );
+
+
+    /*
+       PEQUENO TEMPO
+       COM A LUZ ACESA
+    */
+
+    setTimeout(() => {
+
+        /*
+           VOLTA O SITE
+        */
+
+        blackout.classList.remove(
+            "active"
+        );
+
+
+        /*
+           ESCONDE A LUZ
+        */
+
+        spotlight.classList.remove(
+            "on"
+        );
+
+
+        /*
+           MÚSICA RECOMEÇA
+           DO ZERO
+        */
+
+        bgm.currentTime = 0;
+
+        bgm.play().catch(() => {});
+
+
+        /*
+           LIBERA O BOTÃO
+        */
+
+        themeToggle.style.pointerEvents =
+            "auto";
+
+
+        /*
+           FINALIZA
+           EASTER EGG
+        */
+
+        themeFloodRunning = false;
+
+
+        /*
+           NOTÍCIA ESPECIAL
+        */
+
+        if (
+            typeof mostrarNoticia ===
+            "function"
+        ) {
+
+            mostrarNoticia(
+                "💡 SISTEMA DE ILUMINAÇÃO RESTAURADO. POR FAVOR, PARE DE APERTAR OS BOTÕES."
+            );
+
+        }
+
+    }, 500);
+
+}
+
+const blackoutSound =
+    document.getElementById("blackout-sound");
+
+const lightFlickerSound =
+    document.getElementById("light-flicker-sound");
+
+const powerRestoreSound =
+    document.getElementById("power-restore-sound");
+
+    function iniciarBlackoutTema() {
+
+    const blackout =
+        document.getElementById(
+            "theme-blackout"
+        );
+
+    const spotlight =
+        document.getElementById(
+            "spotlight"
+        );
+
+
+    if (!blackout || !spotlight) return;
+
+
+    /*
+       🔌 SOM DA ENERGIA CAINDO
+    */
+
+    if (blackoutSound) {
+
+        blackoutSound.currentTime = 0;
+
+        blackoutSound.play()
+            .catch(() => {});
+
+    }
+
+
+    /*
+       TELA APAGA
+    */
+
+    blackout.classList.add(
+        "active"
+    );
+
+
+    spotlight.classList.remove(
+        "on"
+    );
+
+
+    /*
+       ESPERA UM POUCO NO ESCURO
+       ANTES DA PRIMEIRA LUZ
+    */
+
+    setTimeout(() => {
+
+        iniciarPiscadasLuz();
+
+    }, 900);
+
+}
+
+function iniciarPiscadasLuz() {
+
+    const spotlight =
+        document.getElementById(
+            "spotlight"
+        );
+
+
+    if (!spotlight) return;
+
+
+    let piscadas = 0;
+
+
+    const intervalo = setInterval(() => {
+
+        /*
+           💡 SOM DA LUZ
+        */
+
+        if (lightFlickerSound) {
+
+            lightFlickerSound.currentTime = 0;
+
+            lightFlickerSound.play()
+                .catch(() => {});
+
+        }
+
+
+        /*
+           REINICIA A ANIMAÇÃO
+        */
+
+        spotlight.classList.remove(
+            "on"
+        );
+
+        void spotlight.offsetWidth;
+
+        spotlight.classList.add(
+            "on"
+        );
+
+
+        piscadas++;
+
+
+        /*
+           DEPOIS DE 3 PISCADAS
+        */
+
+        if (piscadas >= 3) {
+
+            clearInterval(
+                intervalo
+            );
+
+
+            setTimeout(() => {
+
+                restaurarSistemaTema();
+
+            }, 850);
+
+        }
+
+    }, 850);
+
+}
+
+function restaurarSistemaTema() {
+
+    const blackout =
+        document.getElementById(
+            "theme-blackout"
+        );
+
+    const spotlight =
+        document.getElementById(
+            "spotlight"
+        );
+
+
+    /*
+       ⚡ SOM DA ENERGIA VOLTANDO
+    */
+
+    if (powerRestoreSound) {
+
+        powerRestoreSound.currentTime = 0;
+
+        powerRestoreSound.play()
+            .catch(() => {});
+
+    }
+
+
+    /*
+       QUARTA LUZ
+    */
+
+    if (spotlight) {
+
+        spotlight.classList.remove(
+            "on"
+        );
+
+        void spotlight.offsetWidth;
+
+        spotlight.classList.add(
+            "on"
+        );
+
+    }
+
+
+    /*
+       PEQUENO MOMENTO
+       ANTES DA RESTAURAÇÃO
+    */
+
+    setTimeout(() => {
+
+        /*
+           VOLTA TUDO
+        */
+
+        blackout.classList.remove(
+            "active"
+        );
+
+
+        if (spotlight) {
+
+            spotlight.classList.remove(
+                "on"
+            );
+
+        }
+
+
+        /*
+           🎵 RESETA A MÚSICA
+        */
+
+        if (bgm) {
+
+            bgm.pause();
+
+            bgm.currentTime = 0;
+
+            bgm.play()
+                .catch(() => {});
+
+        }
+
+
+        /*
+           LIBERA O BOTÃO
+        */
+
+        themeToggle.style.pointerEvents =
+            "auto";
+
+
+        themeFloodRunning = false;
+
+
+        /*
+           📰 NOTÍCIA FINAL
+        */
+
+        if (
+            typeof mostrarNoticia ===
+            "function"
+        ) {
+
+            mostrarNoticia(
+                "💡 SISTEMA DE ILUMINAÇÃO RESTAURADO. POR FAVOR, PARE DE APERTAR OS BOTÕES."
+            );
+
+        }
+
+    }, 500);
+
+}
 
 }
 
